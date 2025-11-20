@@ -35,7 +35,7 @@
 
     <!-- IMPORTANTE: Usamos type="text/babel" con data-type="module" para importaciones modernas -->
     <script type="text/babel" data-type="module">
-        import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0?dev';
+        import React, { useState, useEffect, useRef } from 'https://esm.sh/react@18.2.0?dev';
         import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client?dev';
         import * as LucideIcons from 'https://esm.sh/lucide-react@0.344.0?dev';
 
@@ -46,7 +46,7 @@
             MessageCircle, BookOpen, AlertTriangle, Fingerprint, FlaskConical, 
             Scale, Database, Network, ScanFace, Info, Camera, Clapperboard, 
             Type, Megaphone, Aperture, Layers, Mail, Phone, ArrowDown, Hand,
-            Globe2, Cpu, BarChart3, Library, Bot, Eye, Layout, Film, X, ArrowRight
+            Globe2, Cpu, BarChart3, Library, Bot, Eye, Layout, Film, X
         } = LucideIcons;
 
         const StrategyDoc = () => {
@@ -56,7 +56,21 @@
             const [expandedDiscovery, setExpandedDiscovery] = useState(false);
             const [expandedPillar, setExpandedPillar] = useState(null);
             const [showCaseStudy, setShowCaseStudy] = useState(false);
-            const [showIntro, setShowIntro] = useState(false); // NUEVO ESTADO PARA LA INTRO
+            const [showIntro, setShowIntro] = useState(false);
+
+            // --- FUNCIÓN DE AUTO-SCROLL (CORREGIDA) ---
+            const handleToggle = (setter, currentValue, indexToSet, event) => {
+                const isOpening = currentValue !== indexToSet;
+                setter(isOpening ? indexToSet : null);
+                
+                // FIX: Capturamos el elemento ANTES del setTimeout
+                if (isOpening && event && event.currentTarget) {
+                    const targetElement = event.currentTarget; 
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                    }, 200);
+                }
+            };
 
             // --- VARIABLES DE ESTILO ---
             const spinClass = expandedDiscovery 
@@ -253,7 +267,7 @@
                 }
             ];
 
-            // Variable de clase para el toggle del caso de estudio. 
+            // Variable de clase para el toggle del caso de estudio
             const caseStudyContainerClass = "bg-gray-900 border-4 border-black shadow-[12px_12px_0px_0px_#000] relative overflow-hidden cursor-pointer transition-all duration-500 group " + 
                 (showCaseStudy ? 'rounded-[2.5rem] p-6 md:p-12' : 'rounded-3xl p-6 md:p-8 hover:-translate-y-1 hover:shadow-[14px_14px_0px_0px_#000]');
 
@@ -345,12 +359,12 @@
                             
                             const cardClass = "relative p-5 rounded-2xl border-4 border-black cursor-pointer transition-all duration-300 group overflow-hidden " + 
                                 (isExpanded 
-                                ? 'bg-gray-900 shadow-[8px_8px_0px_0px_#000] -translate-y-1 z-10 md:col-span-2 md:row-span-2 ring-2 ring-yellow-400' 
+                                ? 'bg-black shadow-[8px_8px_0px_0px_#000] -translate-y-1 z-10 md:col-span-2 md:row-span-2 ring-4 ring-yellow-400' 
                                 : 'bg-white shadow-[6px_6px_0px_0px_#000] hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_#000]'
                                 );
                             
                             const headerIconClass = "p-3 rounded-xl border-2 border-black transition-transform " + 
-                                (isExpanded ? 'bg-gray-800 text-white border-gray-600' : `${item.bg} ${item.color} group-hover:scale-110`);
+                                (isExpanded ? 'bg-yellow-400 text-black border-yellow-400' : item.bg + " " + item.color + " group-hover:scale-110");
                                 
                             const stepNumberClass = "font-display text-3xl md:text-4xl " + (isExpanded ? 'text-yellow-400' : 'text-black');
                             const titleClass = "font-display text-xl mb-2 leading-tight relative z-10 " + (isExpanded ? 'text-white text-2xl mb-4' : 'text-black');
@@ -358,7 +372,7 @@
                             return (
                                 <div 
                                 key={idx} 
-                                onClick={() => setExpandedStep(isExpanded ? null : idx)}
+                                onClick={(e) => handleToggle(setExpandedStep, expandedStep, idx, e)}
                                 className={cardClass}
                                 >
                                 <div className="flex justify-between items-start mb-4 relative z-10">
@@ -383,7 +397,7 @@
 
                                 {isExpanded && (
                                     <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 relative z-10">
-                                    <div className="bg-gray-800/50 rounded-xl p-4 mb-4 border-2 border-gray-600">
+                                    <div className="bg-gray-900 rounded-xl p-4 mb-4 border-2 border-gray-800">
                                         <div className="flex items-center gap-2 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">
                                         <Brain size={14} /> {item.colloquialTitle}
                                         </div>
@@ -410,8 +424,10 @@
                     <section className="relative" onClick={(e) => {
                         if (!showCaseStudy) {
                             setShowCaseStudy(true);
+                            const target = e.currentTarget;
+                            // FIX: Auto-scroll corregido con captura de variable
                             setTimeout(() => {
-                                e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                                target.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
                             }, 150);
                         }
                     }}>
@@ -441,10 +457,13 @@
                                      <button 
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            setShowCaseStudy(!showCaseStudy);
-                                            if(!showCaseStudy) {
+                                            const nextState = !showCaseStudy;
+                                            setShowCaseStudy(nextState);
+                                            if (nextState) {
+                                                 const targetSection = e.currentTarget.closest('section');
+                                                 // FIX: Auto-scroll corregido con captura de variable
                                                  setTimeout(() => {
-                                                    e.currentTarget.closest('section').scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                                                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
                                                 }, 150);
                                             }
                                         }}
@@ -488,7 +507,7 @@
                                                         </div>
                                                     </div>
                                                     
-                                                    <div className="bg-gray-800 rounded-2xl p-6 md:p-8 border border-gray-700 hover:border-yellow-400/50 transition-colors relative z-10">
+                                                    <div className="bg-black/80 rounded-2xl p-6 md:p-8 border border-gray-700 hover:border-yellow-400/50 transition-colors relative z-10 shadow-lg">
                                                         <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                                                             <span className="text-yellow-400 font-bold text-xs tracking-widest uppercase bg-yellow-400/10 px-2 py-1 rounded border border-yellow-400/20 w-fit">{ex.phase}</span>
                                                             <h4 className="text-white font-display text-2xl md:text-3xl leading-none">
@@ -511,7 +530,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div className="bg-black/30 p-4 rounded-xl border border-white/5 flex gap-3 items-start">
+                                                        <div className="bg-gray-900 p-4 rounded-xl border border-gray-700 flex gap-3 items-start">
                                                             <Megaphone size={18} className="text-yellow-400 shrink-0 mt-1"/>
                                                             <div>
                                                                 <span className="text-yellow-400 text-xs font-bold uppercase block mb-1">Nota del Director</span>
@@ -547,12 +566,12 @@
                                     const isOpen = expandedPillar === index;
                                     const pillarClass = "border-2 border-black rounded-xl overflow-hidden transition-all duration-300 cursor-pointer " + 
                                         (isOpen 
-                                        ? 'bg-gray-900 shadow-[6px_6px_0px_0px_#000] ring-1 ring-yellow-400' 
+                                        ? 'bg-black shadow-[6px_6px_0px_0px_#000] ring-1 ring-yellow-400' 
                                         : 'bg-white shadow-[2px_2px_0px_0px_#000] hover:shadow-[4px_4px_0px_0px_#000]'
                                         );
                                         
-                                    const headerClass = "p-4 flex items-center justify-between " + (isOpen ? 'bg-gray-900 text-white' : 'bg-white text-black');
-                                    const iconContainerClass = "p-2 rounded-lg " + (isOpen ? 'bg-gray-800 text-yellow-400' : 'bg-yellow-100 text-yellow-700');
+                                    const headerClass = "p-4 flex items-center justify-between " + (isOpen ? 'bg-black text-white' : 'bg-white text-black');
+                                    const iconContainerClass = "p-2 rounded-lg " + (isOpen ? 'bg-gray-900 text-yellow-400' : 'bg-yellow-100 text-yellow-700');
                                     const titleClass = "font-bold text-lg leading-none " + (isOpen ? 'text-white' : 'text-black');
                                     const chevronClass = "transition-transform " + (isOpen ? 'rotate-180 text-yellow-400' : 'text-gray-400');
                                     
@@ -576,7 +595,7 @@
                                             </div>
                                             
                                             {isOpen && (
-                                                <div className="p-5 pt-0 border-t-2 border-gray-800 bg-gray-900">
+                                                <div className="p-5 pt-0 border-t-2 border-gray-800 bg-black">
                                                     <p className="text-sm text-yellow-400 font-bold uppercase tracking-widest mb-2 mt-4">{pillar.subtitle}</p>
                                                     <p className="text-gray-200 text-base leading-relaxed">
                                                         {pillar.content}
@@ -597,16 +616,16 @@
                             const isExpanded = expandedAlgo === idx;
                             const algoCardClass = "p-5 rounded-xl border-3 border-black cursor-pointer transition-all duration-300 overflow-hidden " +
                                 (isExpanded 
-                                ? 'bg-gray-900 shadow-[6px_6px_0px_0px_#000]' 
+                                ? 'bg-black shadow-[6px_6px_0px_0px_#000] ring-1 ring-yellow-400' 
                                 : 'bg-white shadow-[4px_4px_0px_0px_#000] hover:shadow-[6px_6px_0px_0px_#000] hover:-translate-y-1'
                                 );
-                            const algoIconClass = "p-3 rounded-lg border-2 border-black shrink-0 transition-colors " + (isExpanded ? 'bg-gray-800 text-white' : `${item.bg} ${item.color}`);
+                            const algoIconClass = "p-3 rounded-lg border-2 border-black shrink-0 transition-colors " + (isExpanded ? 'bg-gray-900 text-white' : `${item.bg} ${item.color}`);
                             const algoTitleClass = "block text-lg leading-tight mb-2 transition-colors " + (isExpanded ? 'text-yellow-400' : 'text-gray-900');
 
                             return (
                                 <div 
                                 key={idx}
-                                onClick={() => setExpandedAlgo(isExpanded ? null : idx)}
+                                onClick={(e) => handleToggle(setExpandedAlgo, expandedAlgo, idx, null)}
                                 className={algoCardClass}
                                 >
                                 <div className="flex gap-4 items-start">
@@ -628,7 +647,7 @@
                                     
                                     {isExpanded && (
                                         <div className="animate-in fade-in slide-in-from-top-2 duration-300 pt-2">
-                                        <div className="bg-gray-800/50 rounded-lg p-4 border-2 border-gray-600 mb-2">
+                                        <div className="bg-gray-900 rounded-lg p-4 border-2 border-gray-800 mb-2">
                                             <div className="flex items-center gap-2 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">
                                             <Database size={14} /> {item.expandedTitle}
                                             </div>
