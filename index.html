@@ -46,7 +46,7 @@
             MessageCircle, BookOpen, AlertTriangle, Fingerprint, FlaskConical, 
             Scale, Database, Network, ScanFace, Info, Camera, Clapperboard, 
             Type, Megaphone, Aperture, Layers, Mail, Phone, ArrowDown, Hand,
-            Globe2, Cpu, BarChart3, Library, Bot, Eye, Layout, Film, X
+            Globe2, Cpu, BarChart3, Library, Bot, Eye, Layout, Film, X, Cat, Watch, Heart
         } = LucideIcons;
 
         const StrategyDoc = () => {
@@ -57,22 +57,25 @@
             const [expandedPillar, setExpandedPillar] = useState(null);
             const [showCaseStudy, setShowCaseStudy] = useState(false);
             const [showIntro, setShowIntro] = useState(false);
+            
+            // Estado para alternar ejemplos (Default: Gato)
+            const [activeCaseExample, setActiveCaseExample] = useState('cat'); 
 
-            // --- FUNCIÓN DE AUTO-SCROLL (CORREGIDA) ---
+            // --- FUNCIÓN DE AUTO-SCROLL ---
             const handleToggle = (setter, currentValue, indexToSet, event) => {
                 const isOpening = currentValue !== indexToSet;
                 setter(isOpening ? indexToSet : null);
                 
-                // FIX: Capturamos el elemento ANTES del setTimeout
+                // Capturamos el elemento ANTES del timeout para evitar errores de "null"
                 if (isOpening && event && event.currentTarget) {
-                    const targetElement = event.currentTarget; 
+                    const targetElement = event.currentTarget;
                     setTimeout(() => {
                         targetElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
                     }, 200);
                 }
             };
 
-            // --- VARIABLES DE ESTILO ---
+            // --- VARIABLES DE ESTILO (Optimizadas para Babel) ---
             const spinClass = expandedDiscovery 
                 ? 'animate-[spin_2s_linear_infinite]' 
                 : 'animate-[spin_10s_linear_infinite]';
@@ -89,6 +92,12 @@
             const btnCharismaticClass = btnBase + (activeScenario === 'carismatico' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
             const btnMysteriousClass = btnBase + "border-t-2 md:border-t-0 md:border-l-4 border-black " + (activeScenario === 'misterioso' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
             const btnConceptClass = btnBase + "border-t-2 md:border-t-0 md:border-l-4 border-black " + (activeScenario === 'concepto' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
+
+            const caseBtnBase = "flex-1 py-4 px-6 rounded-xl font-bold text-xs md:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 border-2 ";
+            const caseBtnCat = caseBtnBase + (activeCaseExample === 'cat' ? 'bg-yellow-400 text-black border-yellow-400 shadow-[4px_4px_0px_0px_rgba(250,204,21,0.5)]' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white');
+            const caseBtnTaser = caseBtnBase + (activeCaseExample === 'taser' ? 'bg-yellow-400 text-black border-yellow-400 shadow-[4px_4px_0px_0px_rgba(250,204,21,0.5)]' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white');
+            const caseBtnRedFlag = caseBtnBase + (activeCaseExample === 'redflag' ? 'bg-yellow-400 text-black border-yellow-400 shadow-[4px_4px_0px_0px_rgba(250,204,21,0.5)]' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white');
+
 
             // DATOS: PASOS TEÓRICOS (CONCEPTUALES)
             const steps = [
@@ -154,49 +163,122 @@
                 }
             ];
 
-            // DATOS: EJEMPLO PRÁCTICO DETALLADO (ALOPECIA)
-            const alopeciaExample = [
-                {
-                    step: "01",
-                    phase: "EL GANCHO",
-                    title: "La Pesadilla Matutina",
-                    visual: "CÁMARA EN MANO (Temblorosa). Primer plano cenital (Top Down) de una almohada blanca. Vemos claramente pelos oscuros contrastando. Una mano entra y los recoge con miedo.",
-                    audio: "SFX: Zumbido agudo (Tinnitus) que se corta de golpe con un 'GASP' (respiración ahogada).",
-                    directorNote: "La almohada debe ser blanca pura para maximizar el contraste. La mano debe temblar visiblemente."
+            // DATOS: EJEMPLOS DIVERTIDOS
+            const caseStudiesData = {
+                cat: {
+                    title: "El Traductor de Gatos",
+                    subtitle: "Vendiéndole a la inseguridad del dueño",
+                    icon: Cat,
+                    steps: [
+                        {
+                            step: "01", phase: "EL GANCHO", title: "La Mirada Asesina",
+                            visual: "Zoom in lento a los ojos de un gato que mira fijamente a cámara (y a tu alma). Filtro rojo sutil.",
+                            audio: "Música de película de terror (Tensión). VOZ: 'Él sabe lo que hiciste...'",
+                            directorNote: "Paranoia cómica. Todos los dueños de gatos sienten que su mascota los juzga en secreto."
+                        },
+                        {
+                            step: "02", phase: "CONTEXTO", title: "La Duda Existencial",
+                            visual: "El dueño preguntándole al gato '¿Me quieres?' y el gato bostezando con desprecio.",
+                            audio: "VOZ: '¿Te odia? ¿Planea tu muerte? ¿O solo quiere atún? La incertidumbre te está matando.'",
+                            directorNote: "Agitar el dolor de la indiferencia felina."
+                        },
+                        {
+                            step: "03", phase: "SOLUCIÓN", title: "La Revelación",
+                            visual: "Pantalla de la App escaneando al gato. Aparece burbuja de texto sobre su cabeza: 'Tu corte de pelo es lamentable, Karen'.",
+                            audio: "SFX: Sonido tecnológico futurista. VOZ: 'MiauTalk decodifica su desprecio en tiempo real.'",
+                            directorNote: "El humor viene de confirmar que el gato es, efectivamente, un patán."
+                        },
+                        {
+                            step: "04", phase: "PRUEBA", title: "La Verdad Duele",
+                            visual: "Montaje de usuarios riendo y llorando mirando sus teléfonos apuntando a sus gatos.",
+                            audio: "VOZ: 'Más de 10,000 esclavos... digo, dueños, ya saben la verdad.'",
+                            directorNote: "Prueba social enmarcada en la broma de 'esclavos de gatos'."
+                        },
+                        {
+                            step: "05", phase: "CTA", title: "Descubre tu Destino",
+                            visual: "El gato a punto de tirar un vaso de agua de la mesa.",
+                            audio: "VOZ: 'Descárgala antes de que tire el vaso. Hazlo. Ya.'",
+                            directorNote: "Micro-tensión final que impulsa la acción inmediata."
+                        }
+                    ]
                 },
-                {
-                    step: "02",
-                    phase: "CONTEXTO",
-                    title: "La Raíz del Mal",
-                    visual: "ANIMACIÓN 3D (Estilo médico). Zoom-in a un folículo piloso. Una sustancia roja viscosa (Grasa/DHT) rodea la raíz y la asfixia. El pelo se vuelve delgado y gris.",
-                    audio: "VOZ EN OFF (Grave/Seria): 'No es tu edad. No es el estrés. Tu cuero cabelludo se está asfixiando biológicamente ahora mismo...'",
-                    directorNote: "La animación debe dar una sensación de 'suciedad' o 'enfermedad' para justificar la limpieza posterior."
+                taser: {
+                    title: "Reloj Taser 'DoItNow'",
+                    subtitle: "Productividad extrema basada en el miedo",
+                    icon: Watch,
+                    steps: [
+                        {
+                            step: "01", phase: "EL GANCHO", title: "El Despertar Violento",
+                            visual: "Primer plano de un tipo durmiendo sobre el teclado. De repente... ¡ZAP! Salta de la silla con los pelos de punta y los ojos desorbitados.",
+                            audio: "SFX: Sonido de electricidad fuerte. Grito corto y seco.",
+                            directorNote: "Slapstick comedy. El golpe físico es el mejor 'Pattern Interrupt'."
+                        },
+                        {
+                            step: "02", phase: "CONTEXTO", title: "El Cerebro de Mono",
+                            visual: "El tipo intentando trabajar pero termina viendo videos de monos bailando. Se agarra la cabeza frustrado.",
+                            audio: "VOZ: '¿Otra vez procastinando? Tu fuerza de voluntad es un chiste. Necesitas un castigo.'",
+                            directorNote: "Identificación inmediata con la pérdida de tiempo en redes."
+                        },
+                        {
+                            step: "03", phase: "SOLUCIÓN", title: "La Disciplina de 50 Voltios",
+                            visual: "Primer plano heroico del reloj. Gráfico que muestra 'Sensor de Inactividad' activándose.",
+                            audio: "Música épica de trailer de acción. VOZ: 'DoItNow detecta cuando bajas el ritmo y te mete 50 voltios de motivación pura.'",
+                            directorNote: "Tratar un producto ridículo con la seriedad de un anuncio de Apple."
+                        },
+                        {
+                            step: "04", phase: "PRUEBA", title: "La Novela en 2 Días",
+                            visual: "Un escritor con un tic nervioso en el ojo tecleando a la velocidad de la luz. Pila de libros terminados a su lado.",
+                            audio: "TESTIMONIO: 'Escribí mi tesis en una tarde. Es... (tic) electrizante.'",
+                            directorNote: "El beneficio es real (escribió la tesis), pero el costo (el tic) es el chiste."
+                        },
+                        {
+                            step: "05", phase: "CTA", title: "Compra tu Miedo",
+                            visual: "El reloj empezando a cargar una nueva descarga (luz roja parpadeando).",
+                            audio: "VOZ: 'Compra ahora. O prepárate para el chispazo.'",
+                            directorNote: "Urgencia literal basada en el dolor físico inminente."
+                        }
+                    ]
                 },
-                {
-                    step: "03",
-                    phase: "SOLUCIÓN",
-                    title: "El Alivio Instantáneo",
-                    visual: "SLOW MOTION (120fps). Una gota dorada brillante cae sobre la sustancia roja. Al contacto, hay una explosión de frescura (burbujas) y la raíz se vuelve verde sana.",
-                    audio: "SFX: Sonido de agua refrescante o 'Sizzle' efervescente. MÚSICA: Entra un beat esperanzador. VOZ: 'El Protocolo Alfa disuelve la obstrucción en segundos'.",
-                    directorNote: "El cambio de color (Rojo -> Verde/Dorado) es crucial. Satisface el cerebro reptiliano."
-                },
-                {
-                    step: "04",
-                    phase: "PRUEBA",
-                    title: "El Espejo de la Verdad",
-                    visual: "MONTAJE RÁPIDO (Fast Cuts). Tres hombres 'reales' (no modelos) frente al espejo. Se tiran del pelo con fuerza para demostrar que no se cae. Sonríen.",
-                    audio: "SFX: Sonidos de 'Ding' (éxito) con cada corte. VOZ: 'Más de 1,500 hombres recuperaron el control este mes'.",
-                    directorNote: "Es vital que los actores se vean como gente común. Si son demasiado guapos, parece falso."
-                },
-                {
-                    step: "05",
-                    phase: "CTA",
-                    title: "La Oportunidad Perdida",
-                    visual: "PLANO DETALLE. El frasco del producto sobre una mesa. Una mano entra rápido y se lo lleva (dejando el hueco vacío). Entra gráfico de botón pulsando.",
-                    audio: "VOZ (Urgente): 'El stock de lanzamiento vuela. Toca abajo antes de que desaparezca'.",
-                    directorNote: "La acción de 'quitar' el producto genera ansiedad de pérdida (FOMO) mucho más efectiva que solo mostrarlo."
+                redflag: {
+                    title: "Gafas AR 'Red Flag'",
+                    subtitle: "Realidad Aumentada para citas desastrosas",
+                    icon: Heart,
+                    steps: [
+                        {
+                            step: "01", phase: "EL GANCHO", title: "El Príncipe Azul... o no",
+                            visual: "POV (Punto de vista) mirando a un chico guapísimo en un bar. Sonríe perfecto. De repente, un letrero de NEÓN ROJO GIGANTE aparece sobre su cabeza: 'SIGUE A SU EX'.",
+                            audio: "Música romántica que se corta con sonido de alarma nuclear.",
+                            directorNote: "El contraste entre la expectativa romántica y la realidad brutal visualizada."
+                        },
+                        {
+                            step: "02", phase: "CONTEXTO", title: "El Amor es Ciego (y Caro)",
+                            visual: "Montaje rápido de la chica pagando cenas, llorando en el coche y bloqueando números.",
+                            audio: "VOZ: 'Tu corazón es ciego. Tu cuenta bancaria y tu salud mental no pueden permitirse otro error.'",
+                            directorNote: "Agitar el dolor de las malas decisiones amorosas y el costo emocional."
+                        },
+                        {
+                            step: "03", phase: "SOLUCIÓN", title: "El Escáner de Almas",
+                            visual: "Interfaz futurista estilo Iron Man sobre la cara del chico. Analiza: 'Mentiras detectadas: 98%'. 'Nivel de toxicidad: Chernóbil'.",
+                            audio: "Sonidos digitales de escaneo. VOZ: 'Nuestras gafas analizan micro-gestos y stalkean sus redes en 0.1 segundos.'",
+                            directorNote: "Vender la tecnología absurda como la solución definitiva a la soledad."
+                        },
+                        {
+                            step: "04", phase: "PRUEBA", title: "Esquivando Balas",
+                            visual: "Una chica en el bar haciendo movimientos estilo Matrix para esquivar a un tipo que se acerca. En sus gafas dice: 'MAMITIS CRÓNICA'.",
+                            audio: "VOZ: 'Únete a las mujeres que ya no pierden el tiempo.'",
+                            directorNote: "Metáfora visual de 'esquivar una bala' hecha literal."
+                        },
+                        {
+                            step: "05", phase: "CTA", title: "Salva tu Futuro",
+                            visual: "El chico guapo se acerca a hablar. La usuaria se quita las gafas y mira a cámara.",
+                            audio: "VOZ: 'Pre-ordena ahora. Tu futuro terapeuta te lo agradecerá.'",
+                            directorNote: "Cierre apelando al beneficio secundario (ahorro en terapia)."
+                        }
+                    ]
                 }
-            ];
+            };
+            
+            const currentCase = caseStudiesData[activeCaseExample];
 
             const andromedaPillars = [
                 {
@@ -420,14 +502,12 @@
                         </div>
                     </section>
 
-                    {/* NUEVA SECCIÓN 1.5: CASO PRÁCTICO (DESPLEGABLE) */}
+                    {/* SECCIÓN 1.5: LABORATORIO DE CASOS PRÁCTICOS (DESPLEGABLE) */}
                     <section className="relative" onClick={(e) => {
                         if (!showCaseStudy) {
                             setShowCaseStudy(true);
-                            const target = e.currentTarget;
-                            // FIX: Auto-scroll corregido con captura de variable
                             setTimeout(() => {
-                                target.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                                e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
                             }, 150);
                         }
                     }}>
@@ -443,12 +523,12 @@
                                             <Layout size={32} strokeWidth={2.5} />
                                          </div>
                                          <div className="text-left flex-1">
-                                             <span className={"font-bold tracking-widest uppercase text-sm mb-1 block " + (showCaseStudy ? 'text-yellow-400' : 'text-gray-400')}>Ejemplo Práctico</span>
+                                             <span className={"font-bold tracking-widest uppercase text-sm mb-1 block " + (showCaseStudy ? 'text-yellow-400' : 'text-gray-400')}>Laboratorio de Ideas</span>
                                              <h3 className="font-display text-2xl md:text-4xl text-white leading-none">
-                                                 CASO DE ESTUDIO: <span className="text-yellow-400">ALOPECIA</span>
+                                                 CASOS PRÁCTICOS
                                              </h3>
                                              {!showCaseStudy && (
-                                                 <p className="text-gray-400 text-sm mt-2 md:hidden">Toca para desplegar el ejemplo completo</p>
+                                                 <p className="text-gray-400 text-sm mt-2 md:hidden">Toca para desplegar los ejemplos</p>
                                              )}
                                          </div>
                                      </div>
@@ -461,7 +541,6 @@
                                             setShowCaseStudy(nextState);
                                             if (nextState) {
                                                  const targetSection = e.currentTarget.closest('section');
-                                                 // FIX: Auto-scroll corregido con captura de variable
                                                  setTimeout(() => {
                                                     targetSection.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
                                                 }, 150);
@@ -476,27 +555,55 @@
                                 {/* Contenido Desplegable */}
                                 <div className={"grid transition-all duration-700 ease-in-out " + (showCaseStudy ? 'grid-rows-[1fr] opacity-100 mt-12 pt-12 border-t border-gray-700' : 'grid-rows-[0fr] opacity-0')}>
                                     <div className="overflow-hidden">
-                                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                                        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
                                              <div>
-                                                <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mb-2">
-                                                    A continuación, desglosamos paso a paso cómo se aplicaría la teoría de las 5 puertas para vender un producto capilar hipotético ("PeloMágico").
+                                                <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mb-6">
+                                                    Para entender la teoría, nada mejor que verla en acción con productos reales (y un poco absurdos). Selecciona un caso para ver el guion:
                                                 </p>
-                                                <p className="text-sm text-gray-500 italic">
-                                                    Nota: Este es un guion técnico para el equipo de producción.
-                                                </p>
+                                                
+                                                {/* SELECTOR DE CASOS */}
+                                                <div className="flex flex-wrap gap-4">
+                                                    <button 
+                                                        onClick={() => setActiveCaseExample('cat')}
+                                                        className={caseBtnCat}
+                                                    >
+                                                        <Cat size={18} /> Traductor de Gatos
+                                                    </button>
+                                                    <button 
+                                                        onClick={() => setActiveCaseExample('taser')}
+                                                        className={caseBtnTaser}
+                                                    >
+                                                        <Watch size={18} /> Reloj Taser
+                                                    </button>
+                                                    <button 
+                                                        onClick={() => setActiveCaseExample('redflag')}
+                                                        className={caseBtnRedFlag}
+                                                    >
+                                                        <Heart size={18} /> Gafas "Red Flag"
+                                                    </button>
+                                                </div>
                                              </div>
-                                             <button onClick={(e) => { e.stopPropagation(); setShowCaseStudy(false); }} className="text-gray-500 hover:text-white text-sm underline flex items-center gap-2">
-                                                 <X size={16} /> Cerrar ejemplo
+
+                                             <button onClick={(e) => { e.stopPropagation(); setShowCaseStudy(false); }} className="text-gray-500 hover:text-white text-sm underline flex items-center gap-2 self-start lg:self-end">
+                                                 <X size={16} /> Cerrar laboratorio
                                              </button>
+                                        </div>
+
+                                        {/* HEADER DEL CASO ACTIVO */}
+                                        <div className="mb-12">
+                                            <h4 className="text-white font-display text-3xl md:text-5xl leading-none mb-2 flex items-center gap-4">
+                                                {currentCase.title}
+                                            </h4>
+                                            <p className="text-yellow-400 font-bold text-lg tracking-wide">{currentCase.subtitle}</p>
                                         </div>
 
                                         {/* TIMELINE VERTICAL DE EJEMPLO (CENTRALIZADA Y RESPONSIVE) */}
                                         <div className="space-y-0">
-                                            {alopeciaExample.map((ex, idx) => (
+                                            {currentCase.steps.map((ex, idx) => (
                                                 <div key={idx} className="relative pb-16 last:pb-0">
                                                     
                                                     {/* Línea conectora central (solo si no es el último) */}
-                                                    {idx !== alopeciaExample.length - 1 && (
+                                                    {idx !== currentCase.steps.length - 1 && (
                                                         <div className="absolute left-1/2 top-14 bottom-0 w-1 bg-gray-800 -translate-x-1/2 z-0"></div>
                                                     )}
                                                     
@@ -625,7 +732,7 @@
                             return (
                                 <div 
                                 key={idx}
-                                onClick={(e) => handleToggle(setExpandedAlgo, expandedAlgo, idx, null)}
+                                onClick={() => handleToggle(setExpandedAlgo, expandedAlgo, idx, null)}
                                 className={algoCardClass}
                                 >
                                 <div className="flex gap-4 items-start">
