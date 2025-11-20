@@ -425,20 +425,24 @@
                                              </button>
                                         </div>
 
-                                        {/* TIMELINE VERTICAL DE EJEMPLO */}
+                                        {/* TIMELINE VERTICAL DE EJEMPLO (CENTRALIZADA Y RESPONSIVE) */}
                                         <div className="space-y-0">
                                             {alopeciaExample.map((ex, idx) => (
-                                                /* FIX: Responsive Timeline - Centrado en móvil, Izquierda en Desktop */
-                                                <div key={idx} className="relative md:pl-12 pb-16 last:pb-0 md:border-l-2 md:border-gray-700 last:border-0">
+                                                <div key={idx} className="relative pb-16 last:pb-0">
                                                     
-                                                    {/* Bullet Responsivo: Flex centrado en móvil, Absoluto izquierda en Desktop */}
-                                                    <div className="flex justify-center mb-6 md:absolute md:left-0 md:top-0 md:-translate-x-1/2 md:mb-0">
-                                                        <div className="w-12 h-12 md:w-8 md:h-8 bg-black border-2 border-yellow-400 rounded-full flex items-center justify-center text-yellow-400 font-bold text-sm md:text-xs z-10 shadow-[0_0_15px_rgba(250,204,21,0.3)]">
+                                                    {/* Línea conectora central (solo si no es el último) */}
+                                                    {idx !== alopeciaExample.length - 1 && (
+                                                        <div className="absolute left-1/2 top-14 bottom-0 w-1 bg-gray-800 -translate-x-1/2 z-0"></div>
+                                                    )}
+                                                    
+                                                    {/* Bullet Centrado */}
+                                                    <div className="relative z-10 flex justify-center mb-6">
+                                                        <div className="w-16 h-16 bg-black border-4 border-yellow-400 rounded-full flex items-center justify-center text-yellow-400 font-display text-2xl shadow-[0_0_20px_rgba(250,204,21,0.4)]">
                                                             {ex.step}
                                                         </div>
                                                     </div>
                                                     
-                                                    <div className="bg-gray-800 rounded-2xl p-6 md:p-8 border border-gray-700 hover:border-yellow-400/50 transition-colors">
+                                                    <div className="bg-gray-800 rounded-2xl p-6 md:p-8 border border-gray-700 hover:border-yellow-400/50 transition-colors relative z-10">
                                                         <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                                                             <span className="text-yellow-400 font-bold text-xs tracking-widest uppercase bg-yellow-400/10 px-2 py-1 rounded border border-yellow-400/20 w-fit">{ex.phase}</span>
                                                             <h4 className="text-white font-display text-2xl md:text-3xl leading-none">
