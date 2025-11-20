@@ -46,7 +46,7 @@
             MessageCircle, BookOpen, AlertTriangle, Fingerprint, FlaskConical, 
             Scale, Database, Network, ScanFace, Info, Camera, Clapperboard, 
             Type, Megaphone, Aperture, Layers, Mail, Phone, ArrowDown, Hand,
-            Globe2, Cpu, BarChart3, Library, Bot, Eye, Layout, Film, X, Cat, Watch, Heart
+            Globe2, Cpu, BarChart3, Library, Bot, Eye, Layout, Film, X, Utensils, Cat, Watch, Heart
         } = LucideIcons;
 
         const StrategyDoc = () => {
@@ -61,35 +61,20 @@
             // Estado para alternar ejemplos (Default: Gato)
             const [activeCaseExample, setActiveCaseExample] = useState('cat'); 
 
-            // --- FUNCIÓN DE AUTO-SCROLL INTELIGENTE (Mejorada) ---
+            // --- FUNCIÓN DE AUTO-SCROLL ---
             const handleToggle = (setter, currentValue, indexToSet, event) => {
                 const isOpening = currentValue !== indexToSet;
                 setter(isOpening ? indexToSet : null);
                 
-                // Verificamos si estamos abriendo y si existe el evento
                 if (isOpening && event && event.currentTarget) {
                     const targetElement = event.currentTarget;
-                    
-                    // Esperamos un poco a que el DOM se expanda (250ms)
                     setTimeout(() => {
-                        // Calculamos la posición actual del elemento respecto al viewport
-                        const rect = targetElement.getBoundingClientRect();
-                        const elementTop = rect.top;
-                        
-                        // Calculamos la distancia al centro de la pantalla
-                        // window.innerHeight / 2 es el centro exacto
-                        const offset = (window.innerHeight / 2) - (elementTop + (rect.height / 2));
-                        
-                        // Solo hacemos scroll si el elemento está desviado más de 100px del centro
-                        // Esto evita saltos innecesarios si el usuario ya está viendo bien el contenido
-                        if (Math.abs(offset) > 100) {
-                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-                        }
-                    }, 250);
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                    }, 200);
                 }
             };
 
-            // --- VARIABLES DE ESTILO (Optimizadas para Babel) ---
+            // --- VARIABLES DE ESTILO ---
             const spinClass = expandedDiscovery 
                 ? 'animate-[spin_2s_linear_infinite]' 
                 : 'animate-[spin_10s_linear_infinite]';
@@ -106,8 +91,10 @@
             const btnCharismaticClass = btnBase + (activeScenario === 'carismatico' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
             const btnMysteriousClass = btnBase + "border-t-2 md:border-t-0 md:border-l-4 border-black " + (activeScenario === 'misterioso' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
             const btnConceptClass = btnBase + "border-t-2 md:border-t-0 md:border-l-4 border-black " + (activeScenario === 'concepto' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
+            const btnIaClass = btnBase + "border-t-2 md:border-t-0 md:border-l-4 border-black " + (activeScenario === 'ia' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
 
-            const caseBtnBase = "flex-1 py-4 px-6 rounded-xl font-bold text-xs md:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 border-2 ";
+            // FIX: Botones optimizados para móvil (h-auto, py-3) para permitir texto en varias líneas si es necesario
+            const caseBtnBase = "flex-1 py-3 px-4 md:py-4 md:px-6 rounded-xl font-bold text-xs md:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 border-2 h-auto min-h-[3.5rem] text-center ";
             const caseBtnCat = caseBtnBase + (activeCaseExample === 'cat' ? 'bg-yellow-400 text-black border-yellow-400 shadow-[4px_4px_0px_0px_rgba(250,204,21,0.5)]' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white');
             const caseBtnTaser = caseBtnBase + (activeCaseExample === 'taser' ? 'bg-yellow-400 text-black border-yellow-400 shadow-[4px_4px_0px_0px_rgba(250,204,21,0.5)]' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white');
             const caseBtnRedFlag = caseBtnBase + (activeCaseExample === 'redflag' ? 'bg-yellow-400 text-black border-yellow-400 shadow-[4px_4px_0px_0px_rgba(250,204,21,0.5)]' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white');
@@ -292,7 +279,6 @@
                 }
             };
             
-            // FIX: Selección del caso activo
             const currentCase = caseStudiesData[activeCaseExample];
 
             const andromedaPillars = [
@@ -365,8 +351,9 @@
             ];
 
             // Variable de clase para el toggle del caso de estudio
+            // FIX: PADDING AJUSTADO PARA MÓVIL (p-4) Y ESCRITORIO (p-8/p-12)
             const caseStudyContainerClass = "bg-gray-900 border-4 border-black shadow-[12px_12px_0px_0px_#000] relative overflow-hidden cursor-pointer transition-all duration-500 group " + 
-                (showCaseStudy ? 'rounded-[2.5rem] p-6 md:p-12' : 'rounded-3xl p-6 md:p-8 hover:-translate-y-1 hover:shadow-[14px_14px_0px_0px_#000]');
+                (showCaseStudy ? 'rounded-[2.5rem] p-4 md:p-12' : 'rounded-3xl p-6 md:p-8 hover:-translate-y-1 hover:shadow-[14px_14px_0px_0px_#000]');
 
             return (
                 <div className="min-h-screen font-body text-gray-900 selection:bg-yellow-300 pb-20 overflow-x-hidden">
@@ -435,7 +422,7 @@
                                     </div>
 
                                     <p className="text-lg md:text-xl leading-relaxed text-gray-200">
-                                        Esta presentación no es una sugerencia creativa. Es el mapa de las <strong>5 llaves maestras</strong> para hackear el filtro de atención del cerebro, retener a la audiencia y convertir a desconocidos en clientes sin depender de la suerte viral.
+                                        Esta presentación no es una sugerencia creativa. Es el mapa de las <strong>5 llaves maestras</strong> para hackear el filtro de atención del cerebro, retener a la audiencia y convertir a desconocidos en clientes <span className="font-black text-yellow-400 text-xl md:text-2xl">sin depender de la suerte viral.</span>
                                     </p>
 
                                     <div className="mt-8 flex items-center gap-2 text-yellow-400 font-bold text-sm uppercase tracking-widest">
@@ -521,9 +508,8 @@
                     <section className="relative" onClick={(e) => {
                         if (!showCaseStudy) {
                             setShowCaseStudy(true);
-                            const target = e.currentTarget;
                             setTimeout(() => {
-                                target.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                                e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
                             }, 150);
                         }
                     }}>
@@ -580,19 +566,19 @@
                                                 {/* SELECTOR DE CASOS */}
                                                 <div className="flex flex-wrap gap-4">
                                                     <button 
-                                                        onClick={(e) => { e.stopPropagation(); setActiveCaseExample('cat'); }}
+                                                        onClick={() => setActiveCaseExample('cat')}
                                                         className={caseBtnCat}
                                                     >
                                                         <Cat size={18} /> Traductor de Gatos
                                                     </button>
                                                     <button 
-                                                        onClick={(e) => { e.stopPropagation(); setActiveCaseExample('taser'); }}
+                                                        onClick={() => setActiveCaseExample('taser')}
                                                         className={caseBtnTaser}
                                                     >
                                                         <Watch size={18} /> Reloj Taser
                                                     </button>
                                                     <button 
-                                                        onClick={(e) => { e.stopPropagation(); setActiveCaseExample('redflag'); }}
+                                                        onClick={() => setActiveCaseExample('redflag')}
                                                         className={caseBtnRedFlag}
                                                     >
                                                         <Heart size={18} /> Gafas "Red Flag"
@@ -869,6 +855,12 @@
                             className={btnConceptClass}
                         >
                             <MonitorPlay size={24} /> Solo Archivo
+                        </button>
+                        <button 
+                            onClick={() => setActiveScenario('ia')}
+                            className={btnIaClass}
+                        >
+                           <Bot size={24} /> Avatar IA
                         </button>
                         </div>
 
