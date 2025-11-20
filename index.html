@@ -35,7 +35,7 @@
 
     <!-- IMPORTANTE: Usamos type="text/babel" con data-type="module" para importaciones modernas -->
     <script type="text/babel" data-type="module">
-        import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0?dev';
+        import React, { useState, useEffect, useRef } from 'https://esm.sh/react@18.2.0?dev';
         import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client?dev';
         import * as LucideIcons from 'https://esm.sh/lucide-react@0.344.0?dev';
 
@@ -55,7 +55,22 @@
             const [expandedAlgo, setExpandedAlgo] = useState(null);
             const [expandedDiscovery, setExpandedDiscovery] = useState(false);
             const [expandedPillar, setExpandedPillar] = useState(null);
-            const [showCaseStudy, setShowCaseStudy] = useState(false); // Nuevo estado para el caso de estudio
+            const [showCaseStudy, setShowCaseStudy] = useState(false);
+
+            // --- FUNCIÓN DE AUTO-SCROLL ---
+            // Esta función asegura que cuando el usuario abre un elemento, la pantalla se acomode suavemente
+            const handleToggle = (setter, currentValue, indexToSet, event) => {
+                const isOpening = currentValue !== indexToSet;
+                setter(isOpening ? indexToSet : null);
+                
+                if (isOpening && event && event.currentTarget) {
+                    const element = event.currentTarget;
+                    // Pequeño delay para permitir que el DOM se expanda primero
+                    setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                    }, 150);
+                }
+            };
 
             // --- VARIABLES DE ESTILO ---
             const spinClass = expandedDiscovery 
@@ -64,6 +79,7 @@
             
             const usersScaleClass = expandedDiscovery ? 'scale-110' : '';
             
+            // CORRECCIÓN DE PADDING: Unificado p-6 para móvil en ambos estados para evitar saltos
             const discoveryContainerClass = "bg-white border-4 rounded-[2rem] p-8 md:p-12 flex flex-col items-center text-center relative overflow-hidden cursor-pointer transition-all duration-300 " + 
                 (expandedDiscovery 
                 ? 'border-yellow-400 ring-4 ring-yellow-400/30 shadow-[16px_16px_0px_0px_#000]' 
@@ -252,9 +268,10 @@
                 }
             ];
 
-            // Variable de clase para el toggle del caso de estudio
+            // Variable de clase para el toggle del caso de estudio. 
+            // CORRECCIÓN: PADDING UNIFICADO (p-6 en móvil siempre) para evitar saltos.
             const caseStudyContainerClass = "bg-gray-900 border-4 border-black shadow-[12px_12px_0px_0px_#000] relative overflow-hidden cursor-pointer transition-all duration-500 group " + 
-                (showCaseStudy ? 'rounded-[2.5rem] p-8 md:p-12' : 'rounded-3xl p-6 md:p-8 hover:-translate-y-1 hover:shadow-[14px_14px_0px_0px_#000]');
+                (showCaseStudy ? 'rounded-[2.5rem] p-6 md:p-12' : 'rounded-3xl p-6 md:p-8 hover:-translate-y-1 hover:shadow-[14px_14px_0px_0px_#000]');
 
             return (
                 <div className="min-h-screen font-body text-gray-900 selection:bg-yellow-300 pb-20 overflow-x-hidden">
@@ -324,7 +341,7 @@
                             return (
                                 <div 
                                 key={idx} 
-                                onClick={() => setExpandedStep(isExpanded ? null : idx)}
+                                onClick={(e) => handleToggle(setExpandedStep, expandedStep, idx, e)}
                                 className={cardClass}
                                 >
                                 <div className="flex justify-between items-start mb-4 relative z-10">
@@ -373,7 +390,15 @@
                     </section>
 
                     {/* NUEVA SECCIÓN 1.5: CASO PRÁCTICO (DESPLEGABLE) */}
-                    <section className="relative" onClick={() => !showCaseStudy && setShowCaseStudy(true)}>
+                    <section className="relative" onClick={(e) => {
+                        if (!showCaseStudy) {
+                            setShowCaseStudy(true);
+                            // Auto-scroll con delay para dar tiempo a que se expanda
+                            setTimeout(() => {
+                                e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                            }, 150);
+                        }
+                    }}>
                         <div className={caseStudyContainerClass}>
                              {/* Decorative BG */}
                              <div className="absolute inset-0 bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:16px_16px] opacity-20 pointer-events-none"></div>
@@ -401,6 +426,11 @@
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             setShowCaseStudy(!showCaseStudy);
+                                            if(!showCaseStudy) {
+                                                 setTimeout(() => {
+                                                    e.currentTarget.closest('section').scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                                                }, 150);
+                                            }
                                         }}
                                         className={"p-3 rounded-full border-2 transition-all duration-500 " + (showCaseStudy ? 'rotate-180 bg-yellow-400 border-black text-black' : 'bg-transparent border-gray-600 text-white hover:bg-gray-800')}
                                      >
@@ -513,7 +543,7 @@
                                     return (
                                         <div 
                                             key={index}
-                                            onClick={() => setExpandedPillar(isOpen ? null : index)}
+                                            onClick={(e) => handleToggle(setExpandedPillar, expandedPillar, index, e)}
                                             className={pillarClass}
                                         >
                                             <div className={headerClass}>
@@ -560,7 +590,7 @@
                             return (
                                 <div 
                                 key={idx}
-                                onClick={() => setExpandedAlgo(isExpanded ? null : idx)}
+                                onClick={(e) => handleToggle(setExpandedAlgo, expandedAlgo, idx, e)}
                                 className={algoCardClass}
                                 >
                                 <div className="flex gap-4 items-start">
