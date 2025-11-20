@@ -30,7 +30,7 @@
     <!-- Babel para JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-neutral-200">
     <div id="root"></div>
 
     <!-- IMPORTANTE: Usamos type="text/babel" con data-type="module" para importaciones modernas -->
@@ -45,7 +45,8 @@
             Music, Mic, MonitorPlay, ShieldCheck, ChevronDown, Lightbulb, 
             MessageCircle, BookOpen, AlertTriangle, Fingerprint, FlaskConical, 
             Scale, Database, Network, ScanFace, Info, Camera, Clapperboard, 
-            Type, Megaphone, Aperture, Layers, Mail, Phone, ArrowDown, Hand 
+            Type, Megaphone, Aperture, Layers, Mail, Phone, ArrowDown, Hand,
+            Globe2, Cpu, BarChart3
         } = LucideIcons;
 
         const StrategyDoc = () => {
@@ -53,6 +54,29 @@
             const [expandedStep, setExpandedStep] = useState(null);
             const [expandedAlgo, setExpandedAlgo] = useState(null);
             const [expandedDiscovery, setExpandedDiscovery] = useState(false);
+            const [expandedPillar, setExpandedPillar] = useState(null);
+
+            // --- VARIABLES DE ESTILO (Extracción de lógica para evitar errores de Babel) ---
+            
+            // Clases para el gráfico animado de segmentación
+            const spinClass = expandedDiscovery 
+                ? 'animate-[spin_2s_linear_infinite]' 
+                : 'animate-[spin_10s_linear_infinite]';
+            
+            const usersScaleClass = expandedDiscovery ? 'scale-110' : '';
+            
+            const discoveryContainerClass = "bg-white border-4 rounded-[2rem] p-8 md:p-12 flex flex-col items-center text-center relative overflow-hidden cursor-pointer transition-all duration-300 " + 
+                (expandedDiscovery 
+                ? 'border-yellow-400 ring-4 ring-yellow-400/30 shadow-[16px_16px_0px_0px_#000]' 
+                : 'border-black shadow-[12px_12px_0px_0px_#000] hover:-translate-y-1 hover:shadow-[16px_16px_0px_0px_#000]'
+                );
+
+            // Clases para botones de escenarios
+            const btnBase = "flex-1 p-6 font-bold text-lg flex items-center justify-center gap-3 transition-all ";
+            const btnCharismaticClass = btnBase + (activeScenario === 'carismatico' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
+            const btnMysteriousClass = btnBase + "border-t-2 md:border-t-0 md:border-l-4 border-black " + (activeScenario === 'misterioso' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
+            const btnConceptClass = btnBase + "border-t-2 md:border-t-0 md:border-l-4 border-black " + (activeScenario === 'concepto' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
+
 
             // Datos de los pasos (Estructura)
             const steps = [
@@ -118,16 +142,38 @@
                 }
             ];
 
-            // Datos del algoritmo
+            // Datos Pilares de Andrómeda
+            const andromedaPillars = [
+                {
+                    icon: Globe2,
+                    title: "Social vs Interest Graph",
+                    subtitle: "El fin de la era de los 'Amigos'",
+                    content: "Hasta 2024, las redes sociales te mostraban lo que publicaban tus amigos y seguidos (Social Graph). Eso tenía un límite: la vida de tus amigos es aburrida. Andrómeda cambió esto al 'Interest Graph': ahora Meta te muestra el mejor contenido del mundo basado en tus intereses, sin importar de quién sea. Tu competencia ya no es tu vecino, es MrBeast."
+                },
+                {
+                    icon: Scale,
+                    title: "Democracia Viral",
+                    subtitle: "Tus seguidores ya no importan",
+                    content: "El contador se resetea a cero con cada video. Un video de una cuenta nueva puede tener 10M de vistas si la retención es alta, mientras que una cuenta con 1M de seguidores puede tener 100 vistas si el video es aburrido. La aristocracia de los influencers ha muerto; viva la meritocracia del contenido."
+                },
+                {
+                    icon: Cpu,
+                    title: "Buckets de Prueba",
+                    subtitle: "Juzgado por desconocidos",
+                    content: "Al subir un Reel, Andrómeda lo muestra primero a un 'Bucket Frío' de 200 desconocidos. Si ellos no lo ven completo, el video muere ahí, aunque tengas miles de fans esperando. Tu contenido debe ser capaz de sobrevivir por sí mismo en la selva de desconocidos sin contexto previo."
+                }
+            ];
+
+            // Datos del algoritmo (Pauta)
             const algoSteps = [
                 {
                 icon: TrendingUp,
                 color: "text-red-600",
                 bg: "bg-red-100",
-                title: "Fin del Alcance Orgánico",
-                desc: "Meta ya no muestra tu contenido a tus seguidores, sino a quien 'cree' que le gustará. El alcance orgánico hoy es menor al 5%.",
+                title: "El Mito del Alcance Orgánico",
+                desc: "Meta ya no muestra tu contenido a tus seguidores por defecto. El alcance orgánico hoy es menor al 5%.",
                 expandedTitle: "Tu seguidor ya no es tuyo",
-                expandedText: "Antiguamente, si tenías 10k seguidores, 5k veían tu post. Hoy, Meta funciona como TikTok: prioriza la retención sobre la conexión. Solo se lo muestra a un 3% de tus fans; si ellos no reaccionan en minutos, el post muere."
+                expandedText: "Antiguamente, si tenías 10k seguidores, 5k veían tu post. Hoy, Meta funciona como TikTok: prioriza la retención sobre la conexión. Solo se lo muestra a un 3% de tus fans; si ellos no reaccionan en minutos, el post muere. El alcance orgánico ya no es un derecho, es un premio difícil de ganar."
                 },
                 {
                 icon: Target,
@@ -136,12 +182,12 @@
                 title: "Pauta = Compra de Datos",
                 desc: "Al pagar, forzamos al algoritmo a probar el video con miles de desconocidos para encontrar patrones de comportamiento.",
                 expandedTitle: "Comprando velocidad, no éxito",
-                expandedText: "Cuando metes dinero, pagas por 'Data Points'. Le das gasolina al algoritmo para que se equivoque rápido, falle con 900 personas y encuentre a las 100 correctas."
+                expandedText: "Cuando metes dinero, no estás pagando por ventas garantizadas, estás pagando por 'Data Points'. Le das gasolina al algoritmo para que se equivoque rápido, falle con 900 personas y encuentre a las 100 correctas. Sin pauta, este aprendizaje tarda años; con pauta, tarda días."
                 }
             ];
 
             return (
-                <div className="min-h-screen bg-gray-50 font-body text-gray-900 selection:bg-yellow-300 pb-20 overflow-x-hidden">
+                <div className="min-h-screen font-body text-gray-900 selection:bg-yellow-300 pb-20 overflow-x-hidden">
                 
                 {/* HEADER / PORTADA */}
                 <header className="bg-yellow-400 border-b-4 border-black py-12 px-6 md:p-16 text-center relative overflow-hidden">
@@ -169,8 +215,10 @@
                             <div className="bg-black text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center font-display text-2xl md:text-4xl rounded-xl shadow-[4px_4px_0px_0px_rgba(250,204,21,1)] shrink-0">1</div>
                             <h2 className="font-display text-3xl md:text-5xl uppercase italic tracking-tighter leading-none">La Estructura</h2>
                         </div>
-                        <p className="text-gray-500 text-sm md:text-base font-bold flex items-center gap-2 animate-bounce bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200 w-fit">
-                            <Hand size={16}/> Toca las tarjetas para ver el ejemplo
+                        
+                        {/* BOTÓN DE AYUDA VISUAL MEJORADO */}
+                        <p className="text-black text-sm md:text-base font-bold flex items-center gap-2 animate-bounce bg-yellow-400 px-4 py-2 rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] w-fit">
+                            <Hand size={20} className="stroke-[3px]" /> Toca las tarjetas para ver el ejemplo
                         </p>
                     </div>
 
@@ -182,37 +230,46 @@
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-start">
                         {steps.map((item, idx) => {
                         const isExpanded = expandedStep === idx;
+                        
+                        // Extracción de lógica de clases
+                        const cardClass = "relative p-5 rounded-2xl border-4 border-black cursor-pointer transition-all duration-300 group overflow-hidden " + 
+                            (isExpanded 
+                            ? 'bg-gray-900 shadow-[8px_8px_0px_0px_#000] -translate-y-1 z-10 md:col-span-2 md:row-span-2 ring-2 ring-yellow-400' 
+                            : 'bg-white shadow-[6px_6px_0px_0px_#000] hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_#000]'
+                            );
+                        
+                        const headerIconClass = "p-3 rounded-xl border-2 border-black transition-transform " + 
+                             (isExpanded ? 'bg-gray-800 text-white border-gray-600' : `${item.bg} ${item.color} group-hover:scale-110`);
+                             
+                        const stepNumberClass = "font-display text-3xl md:text-4xl " + (isExpanded ? 'text-yellow-400' : 'text-black');
+                        
+                        const titleClass = "font-display text-xl mb-2 leading-tight relative z-10 " + (isExpanded ? 'text-white text-2xl mb-4' : 'text-black');
+
                         return (
                             <div 
                             key={idx} 
                             onClick={() => setExpandedStep(isExpanded ? null : idx)}
-                            className={`
-                                relative p-5 rounded-2xl border-2 cursor-pointer transition-all duration-300 group overflow-hidden
-                                ${isExpanded 
-                                ? 'bg-gray-900 border-black shadow-[8px_8px_0px_0px_rgba(250,204,21,1)] -translate-y-1 z-10 md:col-span-2 md:row-span-2' 
-                                : 'bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:scale-95'
-                                }
-                            `}
+                            className={cardClass}
                             >
                             {/* Cabecera de la Tarjeta */}
                             <div className="flex justify-between items-start mb-4 relative z-10">
-                                <div className={`p-3 rounded-xl transition-transform ${isExpanded ? 'bg-gray-800 text-white' : `${item.bg} ${item.color} group-hover:scale-110`}`}>
+                                <div className={headerIconClass}>
                                 <item.icon size={24} strokeWidth={2.5} />
                                 </div>
-                                <span className={`font-display text-3xl md:text-4xl ${isExpanded ? 'text-yellow-400' : 'text-gray-200'}`}>{item.step}</span>
+                                <span className={stepNumberClass}>{item.step}</span>
                             </div>
                             
-                            <h3 className={`font-display text-xl mb-2 leading-tight relative z-10 ${isExpanded ? 'text-white text-2xl mb-4' : 'text-black'}`}>{item.title}</h3>
+                            <h3 className={titleClass}>{item.title}</h3>
                             
                             {!isExpanded && (
                                 <div className="relative z-10">
-                                    <div className="text-xs font-bold bg-gray-100 text-gray-500 inline-block px-2 py-1 rounded-lg mb-3">{item.time}</div>
+                                    <div className="text-xs font-bold bg-gray-100 text-gray-800 border border-gray-300 inline-block px-2 py-1 rounded-lg mb-3">{item.time}</div>
                                     <p className="text-sm text-gray-600 leading-snug font-medium mb-4">{item.desc}</p>
                                     
                                     {/* PISTA VISUAL DE INTERACCIÓN */}
-                                    <div className="pt-3 border-t border-gray-100 flex items-center justify-center gap-2 text-blue-600">
+                                    <div className="pt-3 border-t-2 border-gray-100 flex items-center justify-center gap-2 text-blue-600 font-bold">
                                         <span className="text-[10px] font-black uppercase tracking-widest">Ver Guion</span>
-                                        <ChevronDown size={16} />
+                                        <ChevronDown size={16} className="stroke-[3px]" />
                                     </div>
                                 </div>
                             )}
@@ -220,7 +277,7 @@
                             {/* Contenido Expandido (Explicación Coloquial) */}
                             {isExpanded && (
                                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 relative z-10">
-                                <div className="bg-gray-800/50 rounded-xl p-4 mb-4 border border-gray-700">
+                                <div className="bg-gray-800/50 rounded-xl p-4 mb-4 border-2 border-gray-600">
                                     <div className="flex items-center gap-2 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">
                                     <MessageCircle size={14} /> {item.colloquialTitle}
                                     </div>
@@ -251,46 +308,91 @@
                         <h2 className="font-display text-3xl md:text-5xl uppercase italic tracking-tighter leading-none">Algoritmo "Andrómeda"</h2>
                         </div>
 
-                        {/* EXPLICACIÓN ANDRÓMEDA */}
-                        <div className="bg-gray-100 border-l-4 border-yellow-400 p-6 mb-8 rounded-r-xl">
-                        <div className="flex gap-4 items-start">
-                            <Info className="text-yellow-600 shrink-0 mt-1" size={24} />
-                            <div>
-                            <h4 className="font-bold text-lg text-black mb-2">¿Qué es Andrómeda?</h4>
-                            <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-3">
-                                Es el cambio radical que Meta desplegó en <strong>Octubre de 2025</strong>. Afectó a todos, grandes y pequeños.
+                        {/* EXPLICACIÓN ANDRÓMEDA EXPANDIDA (PILARES) - MODO OSCURO */}
+                        <div className="mb-10">
+                            <p className="text-gray-700 text-lg mb-6 leading-relaxed">
+                                En <strong>Octubre de 2025</strong>, Meta desplegó su actualización más radical. No fue un ajuste, fue un cambio de motor completo. Aquí están los 3 pilares que cambiaron las reglas del juego:
                             </p>
-                            <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                                Pasamos del <strong>"Social Graph"</strong> (tus amigos) al <strong>"Interest Graph"</strong> (contenido de desconocidos). Las viejas reglas ya no sirven.
-                            </p>
+
+                            <div className="space-y-4">
+                                {andromedaPillars.map((pillar, index) => {
+                                    const isOpen = expandedPillar === index;
+                                    
+                                    // Extracción de lógica de clases
+                                    const pillarClass = "border-2 border-black rounded-xl overflow-hidden transition-all duration-300 cursor-pointer " + 
+                                        (isOpen 
+                                        ? 'bg-gray-900 shadow-[6px_6px_0px_0px_#000] ring-1 ring-yellow-400' 
+                                        : 'bg-white shadow-[2px_2px_0px_0px_#000] hover:shadow-[4px_4px_0px_0px_#000]'
+                                        );
+                                        
+                                    const headerClass = "p-4 flex items-center justify-between " + (isOpen ? 'bg-gray-900 text-white' : 'bg-white text-black');
+                                    const iconContainerClass = "p-2 rounded-lg " + (isOpen ? 'bg-gray-800 text-yellow-400' : 'bg-yellow-100 text-yellow-700');
+                                    const titleClass = "font-bold text-lg leading-none " + (isOpen ? 'text-white' : 'text-black');
+                                    const chevronClass = "transition-transform " + (isOpen ? 'rotate-180 text-yellow-400' : 'text-gray-400');
+                                    
+                                    return (
+                                        <div 
+                                            key={index}
+                                            onClick={() => setExpandedPillar(isOpen ? null : index)}
+                                            className={pillarClass}
+                                        >
+                                            {/* HEADER DE LA TARJETA */}
+                                            <div className={headerClass}>
+                                                <div className="flex items-center gap-4">
+                                                    <div className={iconContainerClass}>
+                                                        <pillar.icon size={20} />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className={titleClass}>{pillar.title}</h4>
+                                                        {!isOpen && <p className="text-xs text-gray-500 mt-1 font-medium">{pillar.subtitle}</p>}
+                                                    </div>
+                                                </div>
+                                                <ChevronDown size={20} className={chevronClass} />
+                                            </div>
+                                            
+                                            {/* CONTENIDO INTERNO */}
+                                            {isOpen && (
+                                                <div className="p-5 pt-0 border-t-2 border-gray-800 bg-gray-900">
+                                                    <p className="text-sm text-yellow-400 font-bold uppercase tracking-widest mb-2 mt-4">{pillar.subtitle}</p>
+                                                    <p className="text-gray-200 text-base leading-relaxed">
+                                                        {pillar.content}
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )
+                                })}
                             </div>
                         </div>
-                        </div>
                         
-                        <div className="space-y-4">
-                        <p className="font-bold text-gray-800 text-lg md:text-xl mb-2">¿Por qué pagar pauta? <span className="text-gray-500 text-base font-normal block md:inline">(Toca para leer)</span></p>
+                        <div className="space-y-4 pt-6 border-t-4 border-gray-200">
+                        <p className="font-bold text-gray-800 text-lg md:text-xl mb-2">Entendido el cambio, ¿por qué pagar pauta? <span className="text-gray-500 text-base font-normal block md:inline">(Toca para leer)</span></p>
                         
                         <div className="flex flex-col gap-4">
                             {algoSteps.map((item, idx) => {
                             const isExpanded = expandedAlgo === idx;
+                            
+                            const algoCardClass = "p-5 rounded-xl border-3 border-black cursor-pointer transition-all duration-300 overflow-hidden " +
+                                (isExpanded 
+                                ? 'bg-gray-900 shadow-[6px_6px_0px_0px_#000]' 
+                                : 'bg-white shadow-[4px_4px_0px_0px_#000] hover:shadow-[6px_6px_0px_0px_#000] hover:-translate-y-1'
+                                );
+                                
+                            const algoIconClass = "p-3 rounded-lg border-2 border-black shrink-0 transition-colors " + (isExpanded ? 'bg-gray-800 text-white' : `${item.bg} ${item.color}`);
+                            const algoTitleClass = "block text-lg leading-tight mb-2 transition-colors " + (isExpanded ? 'text-yellow-400' : 'text-gray-900');
+
                             return (
                                 <div 
                                 key={idx}
                                 onClick={() => setExpandedAlgo(isExpanded ? null : idx)}
-                                className={`
-                                    p-5 rounded-xl border-2 cursor-pointer transition-all duration-300 overflow-hidden
-                                    ${isExpanded 
-                                    ? 'bg-gray-900 border-black shadow-[6px_6px_0px_0px_rgba(250,204,21,1)]' 
-                                    : 'bg-white border-gray-200 hover:border-black shadow-sm'
-                                    }
-                                `}
+                                className={algoCardClass}
                                 >
                                 <div className="flex gap-4 items-start">
-                                    <div className={`${isExpanded ? 'bg-gray-800 text-white' : `${item.bg} ${item.color}`} p-3 rounded-lg shrink-0 transition-colors`}>
+                                    <div className={algoIconClass}>
                                     <item.icon size={24} />
                                     </div>
                                     <div className="flex-1">
-                                    <strong className={`block text-lg leading-tight mb-2 transition-colors ${isExpanded ? 'text-yellow-400' : 'text-gray-900'}`}>
+                                    <strong className={algoTitleClass}>
                                         {item.title}
                                     </strong>
                                     {!isExpanded && (
@@ -304,7 +406,7 @@
                                     
                                     {isExpanded && (
                                         <div className="animate-in fade-in slide-in-from-top-2 duration-300 pt-2">
-                                        <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700 mb-2">
+                                        <div className="bg-gray-800/50 rounded-lg p-4 border-2 border-gray-600 mb-2">
                                             <div className="flex items-center gap-2 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">
                                             <Database size={14} /> {item.expandedTitle}
                                             </div>
@@ -326,21 +428,20 @@
                     {/* Gráfico Abstracto del Algoritmo (Interactivo) */}
                     <div 
                         onClick={() => setExpandedDiscovery(!expandedDiscovery)}
-                        className={`
-                        bg-white border-2 rounded-[2rem] p-8 md:p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center text-center relative overflow-hidden cursor-pointer transition-all duration-300
-                        ${expandedDiscovery ? 'border-yellow-400 ring-4 ring-yellow-400/30' : 'border-black'}
-                        `}
+                        className={discoveryContainerClass}
                     >
                         <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-50 -z-10"></div>
                         
-                        <div className="inline-flex items-center gap-2 text-black text-xs md:text-sm font-bold px-4 py-2 rounded-full border border-black mb-8 bg-yellow-400">
+                        {/* Header del Card */}
+                        <div className="inline-flex items-center gap-3 text-black text-sm font-bold px-4 py-2 rounded-full border-2 border-black mb-8 bg-yellow-400 shadow-[2px_2px_0px_0px_#000]">
                         <ShieldCheck size={16} /> Discovery Engine
                         </div>
                         
-                        <div className="w-40 h-40 md:w-48 md:h-48 bg-gray-50 rounded-full flex items-center justify-center mb-8 relative border-2 border-gray-200">
-                        <div className={`absolute w-full h-full border-[6px] border-black rounded-full border-t-yellow-400 border-r-transparent ${expandedDiscovery ? 'animate-[spin_2s_linear_infinite]' : 'animate-[spin_10s_linear_infinite]'}`}></div>
+                        {/* Icono Principal Animado */}
+                        <div className="w-40 h-40 md:w-48 md:h-48 bg-white rounded-full flex items-center justify-center mb-8 relative border-4 border-black shadow-[4px_4px_0px_0px_#000]">
+                        <div className={"absolute w-full h-full border-[6px] border-black rounded-full border-t-yellow-400 border-r-transparent " + spinClass}></div>
                         <div className="absolute w-3/4 h-3/4 border-[4px] border-gray-300 rounded-full animate-[spin_15s_linear_infinite_reverse] border-t-black"></div>
-                        <Users size={64} className={`text-black transition-transform ${expandedDiscovery ? 'scale-110' : ''}`} />
+                        <Users size={64} className={"text-black transition-transform " + usersScaleClass} />
                         </div>
                         
                         <h3 className="font-display text-3xl md:text-4xl mb-4 leading-tight">Segmentación por Intención</h3>
@@ -350,18 +451,18 @@
                             <p className="text-gray-500 text-base max-w-md mx-auto mb-6">
                             El algoritmo detecta quién ve el video completo y busca "clones" de ese usuario.
                             </p>
-                            <div className="flex items-center justify-center text-xs font-bold text-white bg-blue-600 px-4 py-2 rounded-full w-fit mx-auto shadow-lg animate-pulse">
-                                <ChevronDown size={16} className="mr-1" /> CÓMO FUNCIONA
+                            <div className="flex items-center justify-center text-xs font-bold text-white bg-blue-600 px-4 py-2 rounded-full w-fit mx-auto shadow-[4px_4px_0px_0px_#000] border-2 border-black animate-pulse">
+                                <ChevronDown size={16} className="mr-1 stroke-[3px]" /> CÓMO FUNCIONA
                             </div>
                         </div>
                         ) : (
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 w-full">
-                            <div className="bg-gray-900 text-left rounded-xl p-6 border border-gray-800 shadow-xl">
+                            <div className="bg-gray-900 text-left rounded-xl p-6 border-2 border-gray-800 shadow-xl">
                             <div className="flex items-center gap-2 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-3">
                                 <ScanFace size={16} /> Advantage+ : El Nuevo Estándar
                             </div>
                             <p className="text-gray-200 text-base leading-relaxed mb-3">
-                                Seguir segmentando manualmente (edad, intereses) es <strong>matar el rendimiento</strong>. Estás limitando a la IA.
+                                Seguir segmentando manualmente (edad, intereses, ciudad) es <strong>matar el rendimiento</strong> de tu anuncio. Estás limitando artificialmente a una IA que es más lista que tú.
                             </p>
                             <p className="text-gray-400 text-sm leading-relaxed">
                                 La opción <strong>Advantage+</strong> busca patrones de comportamiento. Deja que la IA encuentre a los "Gemelos Digitales" de tus compradores en lugares donde tú no buscarías.
@@ -384,24 +485,24 @@
                         Selecciona el formato según el artista y los recursos. No todos sirven para todo.
                     </p>
                     
-                    <div className="bg-white rounded-[2rem] border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+                    <div className="bg-white rounded-[2rem] border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
                         {/* TABS HEADER */}
-                        <div className="flex flex-col md:flex-row border-b-2 border-black">
+                        <div className="flex flex-col md:flex-row border-b-4 border-black">
                         <button 
                             onClick={() => setActiveScenario('carismatico')}
-                            className={`flex-1 p-6 font-bold text-lg flex items-center justify-center gap-3 transition-all ${activeScenario === 'carismatico' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50'}`}
+                            className={btnCharismaticClass}
                         >
                             <Mic size={24} /> El Carismático
                         </button>
                         <button 
                             onClick={() => setActiveScenario('misterioso')}
-                            className={`flex-1 p-6 font-bold text-lg flex items-center justify-center gap-3 transition-all border-t-2 md:border-t-0 md:border-l-2 border-black ${activeScenario === 'misterioso' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50'}`}
+                            className={btnMysteriousClass}
                         >
                             <Music size={24} /> El Misterioso
                         </button>
                         <button 
                             onClick={() => setActiveScenario('concepto')}
-                            className={`flex-1 p-6 font-bold text-lg flex items-center justify-center gap-3 transition-all border-t-2 md:border-t-0 md:border-l-2 border-black ${activeScenario === 'concepto' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50'}`}
+                            className={btnConceptClass}
                         >
                             <MonitorPlay size={24} /> Solo Archivo
                         </button>
@@ -414,10 +515,10 @@
                             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
                                 <h3 className="font-display text-3xl md:text-4xl">Estilo "Talking Head"</h3>
-                                <span className="bg-black text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Formato Selfie</span>
+                                <span className="bg-black text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider border-2 border-black shadow-[2px_2px_0px_0px_#000]">Formato Selfie</span>
                             </div>
                             
-                            <div className="bg-blue-50 p-4 md:p-6 rounded-xl border-l-4 border-blue-600 mb-8">
+                            <div className="bg-blue-50 p-4 md:p-6 rounded-xl border-l-4 border-blue-600 mb-8 border-y-2 border-r-2 border-black shadow-[4px_4px_0px_0px_#000]">
                                 <h4 className="text-blue-900 font-bold text-sm md:text-base mb-2 flex items-center gap-2"><Megaphone size={16}/> Nota para el Productor:</h4>
                                 <p className="text-blue-800/80 text-sm md:text-base leading-relaxed">
                                     Si el artista es aburrido, este formato NO sirve. Necesitamos energía alta. Dale café. Si se siente ridículo, lo está haciendo bien.
@@ -426,7 +527,7 @@
 
                             {/* INSTRUCCIONES DE PRODUCCIÓN - CARISMÁTICO */}
                             <div className="grid md:grid-cols-3 gap-4 mb-8">
-                                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
                                     <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase mb-2">
                                     <Aperture size={14} /> Lente / Cámara
                                     </div>
@@ -434,7 +535,7 @@
                                     Usa un <strong>24mm o más angular</strong>. Cámara a menos de un brazo de distancia.
                                     </p>
                                 </div>
-                                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
                                     <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase mb-2">
                                     <Mic size={14} /> Audio
                                     </div>
@@ -442,7 +543,7 @@
                                     Audio <strong>"In your face"</strong>. Sin rever. Micrófono visible si es posible.
                                     </p>
                                 </div>
-                                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
                                     <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase mb-2">
                                     <Clapperboard size={14} /> Edición
                                     </div>
@@ -453,7 +554,7 @@
                             </div>
                             
                             <div className="space-y-4">
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-black shadow-sm">
+                                <div className="bg-white p-6 rounded-2xl border-l-4 border-black shadow-sm border-y-2 border-r-2">
                                 <div className="flex items-center gap-3 mb-2">
                                     <span className="bg-black text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Paso 1: Gancho</span>
                                     <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">00:00 - 00:03</span>
@@ -462,7 +563,7 @@
                                 <p className="text-gray-600 text-sm">El artista debe acercar físicamente su cara al lente o taparlo con la mano. "¡Hey! Mira esto...".</p>
                                 </div>
 
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-gray-300 shadow-sm">
+                                <div className="bg-white p-6 rounded-2xl border-l-4 border-gray-300 shadow-sm border-y-2 border-r-2 border-black">
                                 <div className="flex items-center gap-3 mb-2">
                                     <span className="bg-gray-200 text-gray-600 text-[10px] font-bold px-2 py-1 rounded uppercase">Paso 2: Cuerpo</span>
                                     <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">00:03 - 00:20</span>
@@ -471,7 +572,7 @@
                                 <p className="text-gray-600 text-sm">Cámara en mano inestable. Intercala con B-Roll de él riéndose o interactuando con fans.</p>
                                 </div>
 
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-yellow-400 shadow-sm">
+                                <div className="bg-white p-6 rounded-2xl border-l-4 border-yellow-400 shadow-sm border-y-2 border-r-2 border-black">
                                 <div className="flex items-center gap-3 mb-2">
                                     <span className="bg-yellow-400 text-black text-[10px] font-bold px-2 py-1 rounded uppercase">Paso 3: CTA</span>
                                     <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Final</span>
@@ -487,10 +588,10 @@
                             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
                                 <h3 className="font-display text-3xl md:text-4xl">Estilo "Voice Over"</h3>
-                                <span className="bg-black text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Cinemático</span>
+                                <span className="bg-black text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider border-2 border-black shadow-[2px_2px_0px_0px_#000]">Cinemático</span>
                             </div>
                             
-                            <div className="bg-purple-50 p-4 md:p-6 rounded-xl border-l-4 border-purple-600 mb-8">
+                            <div className="bg-purple-50 p-4 md:p-6 rounded-xl border-l-4 border-purple-600 mb-8 border-y-2 border-r-2 border-black shadow-[4px_4px_0px_0px_#000]">
                                 <h4 className="text-purple-900 font-bold text-sm md:text-base mb-2 flex items-center gap-2"><Megaphone size={16}/> Nota para el Productor:</h4>
                                 <p className="text-purple-800/80 text-sm md:text-base leading-relaxed">
                                     Ideal para artistas introvertidos. Vendemos una atmósfera ("vibe"). Busca texturas (humo, neón). No necesitamos verle la cara todo el tiempo.
@@ -498,7 +599,7 @@
                             </div>
 
                             <div className="grid md:grid-cols-3 gap-4 mb-8">
-                                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
                                     <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase mb-2">
                                     <Aperture size={14} /> Lente / Cámara
                                     </div>
@@ -506,7 +607,7 @@
                                     Graba a <strong>60fps</strong> (Cámara lenta). Usa lentes largos (50mm, 85mm) para desenfocar el fondo.
                                     </p>
                                 </div>
-                                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
                                     <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase mb-2">
                                     <Mic size={14} /> Audio
                                     </div>
@@ -514,7 +615,7 @@
                                     Voz grabada en estudio, pegado al micrófono (efecto proximidad). ASMR de venta.
                                     </p>
                                 </div>
-                                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
                                     <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase mb-2">
                                     <Clapperboard size={14} /> Edición
                                     </div>
@@ -525,15 +626,15 @@
                             </div>
 
                             <div className="space-y-4">
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-black shadow-sm">
+                                <div className="bg-white p-6 rounded-2xl border-l-4 border-black shadow-sm border-y-2 border-r-2">
                                     <p className="text-gray-900 text-lg font-bold mb-1">Estimulación Sensorial</p>
                                     <p className="text-gray-600 text-sm">Detalle macro: Ojo, humo, manos con anillos. Sonido inmersivo.</p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-gray-300 shadow-sm">
+                                <div className="bg-white p-6 rounded-2xl border-l-4 border-gray-300 shadow-sm border-y-2 border-r-2 border-black">
                                     <p className="text-gray-900 text-lg font-bold mb-1">El Manifiesto</p>
                                     <p className="text-gray-600 text-sm">Voz en off narra algo poético. Vemos al artista en cámara lenta preparándose. Tráiler de cine.</p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-yellow-400 shadow-sm">
+                                <div className="bg-white p-6 rounded-2xl border-l-4 border-yellow-400 shadow-sm border-y-2 border-r-2 border-black">
                                     <p className="text-gray-900 text-lg font-bold mb-1">Golpe Final</p>
                                     <p className="text-gray-600 text-sm">Corte a negro. Voz lapidaria: "Tú decides". Silencio total.</p>
                                 </div>
@@ -545,10 +646,10 @@
                             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
                                 <h3 className="font-display text-3xl md:text-4xl">Estilo "Kinetic Type"</h3>
-                                <span className="bg-black text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Gráfico</span>
+                                <span className="bg-black text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider border-2 border-black shadow-[2px_2px_0px_0px_#000]">Gráfico</span>
                             </div>
                             
-                            <div className="bg-red-50 p-4 md:p-6 rounded-xl border-l-4 border-red-600 mb-8">
+                            <div className="bg-red-50 p-4 md:p-6 rounded-xl border-l-4 border-red-600 mb-8 border-y-2 border-r-2 border-black shadow-[4px_4px_0px_0px_#000]">
                                 <h4 className="text-red-900 font-bold text-sm md:text-base mb-2 flex items-center gap-2"><Megaphone size={16}/> Nota para Post-Producción:</h4>
                                 <p className="text-red-800/80 text-sm md:text-base leading-relaxed">
                                     Botón de pánico cuando <strong>no hay material</strong>. La responsabilidad es del Editor. Usa fotos viejas, logos, texturas, videos de stock.
@@ -556,7 +657,7 @@
                             </div>
 
                              <div className="grid md:grid-cols-3 gap-4 mb-8">
-                                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
                                     <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase mb-2">
                                     <Type size={14} /> Gráficos
                                     </div>
@@ -564,7 +665,7 @@
                                     Fuentes Sans-Serif "Bold". Alto contraste (Amarillo/Negro). La letra ES la imagen.
                                     </p>
                                 </div>
-                                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
                                     <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase mb-2">
                                     <Layers size={14} /> Assets
                                     </div>
@@ -572,7 +673,7 @@
                                     Efecto "Paralaje" (2.5D) en fotos estáticas. Recorta al artista del fondo.
                                     </p>
                                 </div>
-                                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
                                     <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase mb-2">
                                     <Mic size={14} /> Ritmo
                                     </div>
@@ -583,15 +684,15 @@
                             </div>
 
                             <div className="space-y-4">
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-black shadow-sm">
+                                <div className="bg-white p-6 rounded-2xl border-l-4 border-black shadow-sm border-y-2 border-r-2">
                                     <p className="text-gray-900 text-lg font-bold mb-1">Epilepsia Visual</p>
                                     <p className="text-gray-600 text-sm">Pantalla roja o negra. Palabra gigante parpadeando: "ALERTA". Sonido de error.</p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-gray-300 shadow-sm">
+                                <div className="bg-white p-6 rounded-2xl border-l-4 border-gray-300 shadow-sm border-y-2 border-r-2 border-black">
                                     <p className="text-gray-900 text-lg font-bold mb-1">Lectura Rápida</p>
                                     <p className="text-gray-600 text-sm">Texto palabra por palabra en el centro (estilo Alex Hormozi). Fondo de papel rasgado. Fotos flash.</p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-yellow-400 shadow-sm">
+                                <div className="bg-white p-6 rounded-2xl border-l-4 border-yellow-400 shadow-sm border-y-2 border-r-2 border-black">
                                     <p className="text-gray-900 text-lg font-bold mb-1">Simulación Interfaz</p>
                                     <p className="text-gray-600 text-sm">Botón gigante dibujado. Un cursor de mouse entra y hace clic. Sonido de click exagerado.</p>
                                 </div>
