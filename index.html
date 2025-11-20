@@ -66,6 +66,7 @@
                 const isOpening = currentValue !== indexToSet;
                 setter(isOpening ? indexToSet : null);
                 
+                // Capturamos el elemento ANTES del timeout para evitar errores de "null"
                 if (isOpening && event && event.currentTarget) {
                     const targetElement = event.currentTarget;
                     setTimeout(() => {
@@ -74,7 +75,7 @@
                 }
             };
 
-            // --- VARIABLES DE ESTILO ---
+            // --- VARIABLES DE ESTILO (Optimizadas para Babel) ---
             const spinClass = expandedDiscovery 
                 ? 'animate-[spin_2s_linear_infinite]' 
                 : 'animate-[spin_10s_linear_infinite]';
@@ -93,8 +94,7 @@
             const btnConceptClass = btnBase + "border-t-2 md:border-t-0 md:border-l-4 border-black " + (activeScenario === 'concepto' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
             const btnIaClass = btnBase + "border-t-2 md:border-t-0 md:border-l-4 border-black " + (activeScenario === 'ia' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400 hover:bg-gray-50');
 
-            // FIX: Botones optimizados para móvil (h-auto, py-3) para permitir texto en varias líneas si es necesario
-            const caseBtnBase = "flex-1 py-3 px-4 md:py-4 md:px-6 rounded-xl font-bold text-xs md:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 border-2 h-auto min-h-[3.5rem] text-center ";
+            const caseBtnBase = "flex-1 py-4 px-6 rounded-xl font-bold text-xs md:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 border-2 ";
             const caseBtnCat = caseBtnBase + (activeCaseExample === 'cat' ? 'bg-yellow-400 text-black border-yellow-400 shadow-[4px_4px_0px_0px_rgba(250,204,21,0.5)]' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white');
             const caseBtnTaser = caseBtnBase + (activeCaseExample === 'taser' ? 'bg-yellow-400 text-black border-yellow-400 shadow-[4px_4px_0px_0px_rgba(250,204,21,0.5)]' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white');
             const caseBtnRedFlag = caseBtnBase + (activeCaseExample === 'redflag' ? 'bg-yellow-400 text-black border-yellow-400 shadow-[4px_4px_0px_0px_rgba(250,204,21,0.5)]' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white');
@@ -279,6 +279,7 @@
                 }
             };
             
+            // FIX: Selección del caso activo
             const currentCase = caseStudiesData[activeCaseExample];
 
             const andromedaPillars = [
@@ -351,9 +352,8 @@
             ];
 
             // Variable de clase para el toggle del caso de estudio
-            // FIX: PADDING AJUSTADO PARA MÓVIL (p-4) Y ESCRITORIO (p-8/p-12)
             const caseStudyContainerClass = "bg-gray-900 border-4 border-black shadow-[12px_12px_0px_0px_#000] relative overflow-hidden cursor-pointer transition-all duration-500 group " + 
-                (showCaseStudy ? 'rounded-[2.5rem] p-4 md:p-12' : 'rounded-3xl p-6 md:p-8 hover:-translate-y-1 hover:shadow-[14px_14px_0px_0px_#000]');
+                (showCaseStudy ? 'rounded-[2.5rem] p-6 md:p-12' : 'rounded-3xl p-6 md:p-8 hover:-translate-y-1 hover:shadow-[14px_14px_0px_0px_#000]');
 
             return (
                 <div className="min-h-screen font-body text-gray-900 selection:bg-yellow-300 pb-20 overflow-x-hidden">
@@ -422,7 +422,7 @@
                                     </div>
 
                                     <p className="text-lg md:text-xl leading-relaxed text-gray-200">
-                                        Esta presentación no es una sugerencia creativa. Es el mapa de las <strong>5 llaves maestras</strong> para hackear el filtro de atención del cerebro, retener a la audiencia y convertir a desconocidos en clientes <span className="font-black text-yellow-400 text-xl md:text-2xl">sin depender de la suerte viral.</span>
+                                        Esta presentación no es una sugerencia creativa. Es el mapa de las <strong>5 llaves maestras</strong> para hackear el filtro de atención del cerebro, retener a la audiencia y convertir a desconocidos en clientes <span className="font-black text-xl text-purple-700">sin depender de la suerte viral.</span>
                                     </p>
 
                                     <div className="mt-8 flex items-center gap-2 text-yellow-400 font-bold text-sm uppercase tracking-widest">
@@ -433,7 +433,7 @@
                         </div>
 
                         <p className="text-lg text-gray-700 mb-8 max-w-3xl leading-relaxed">
-                            Para vender en frío, el cerebro del espectador debe cruzar <strong>5 puertas secuenciales e inevitables</strong>. No es una lista opcional; es un código de seguridad biológico.
+                            Para vender en frío, el cerebro del espectador debe cruzar <strong>5 puertas secuenciales e inevitables</strong>. No es una lista opcional; <span className="font-black text-xl text-purple-700">es un código de seguridad biológico.</span>
                         </p>
 
                         {/* GRID DE TARJETAS (CONCEPTUALES) */}
@@ -960,7 +960,7 @@
                                     <Aperture size={14} /> Lente / Cámara
                                     </div>
                                     <p className="text-sm font-medium text-gray-800">
-                                    Graba a <strong>60fps</strong> (Cámara lenta). Usa lentes largos (50mm, 85mm) para desenfocar el fondo.
+                                    Graba a <strong>60fps</strong> (Cámara lenta). Usa lentes largos (50mm,85mm) para desenfocar el fondo.
                                     </p>
                                 </div>
                                 <div className="bg-white p-4 rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000]">
