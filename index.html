@@ -30,7 +30,7 @@
     <!-- Babel para JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-100">
     <div id="root"></div>
 
     <!-- IMPORTANTE: Usamos type="text/babel" con data-type="module" para importaciones modernas -->
@@ -47,7 +47,7 @@
             Music, Mic, MonitorPlay, ShieldCheck, ChevronDown, Lightbulb, 
             MessageCircle, BookOpen, AlertTriangle, Fingerprint, FlaskConical, 
             Scale, Database, Network, ScanFace, Info, Camera, Clapperboard, 
-            Type, Megaphone, Aperture, Layers, Mail, Phone 
+            Type, Megaphone, Aperture, Layers, Mail, Phone, ArrowDown 
         } = LucideIcons;
 
         const StrategyDoc = () => {
@@ -141,69 +141,74 @@
             ];
 
             return (
-                <div className="min-h-screen bg-gray-50 font-body text-gray-900 selection:bg-yellow-300 pb-20">
+                <div className="min-h-screen bg-gray-50 font-body text-gray-900 selection:bg-yellow-300 pb-40">
                 
                 {/* HEADER / PORTADA */}
-                <header className="bg-yellow-400 border-b-4 border-black p-8 md:p-16 text-center relative overflow-hidden">
+                <header className="bg-yellow-400 border-b-[12px] border-black py-24 px-8 md:px-32 text-center relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-black to-transparent pointer-events-none"></div>
                     
-                    <div className="relative z-10 max-w-5xl mx-auto">
-                    <div className="inline-block bg-black text-yellow-400 px-4 py-2 font-bold tracking-widest text-sm md:text-base mb-8 transform -rotate-2 uppercase shadow-[4px_4px_0px_0px_rgba(255,255,255,0.5)]">
+                    <div className="relative z-10 max-w-[90rem] mx-auto">
+                    <div className="inline-block bg-black text-yellow-400 px-8 py-4 font-extrabold tracking-widest text-xl md:text-2xl mb-12 transform -rotate-2 uppercase shadow-[8px_8px_0px_0px_rgba(255,255,255,0.5)]">
                         Documento de Producción Interna
                     </div>
-                    <h1 className="font-display text-5xl md:text-8xl text-black mb-8 leading-none tracking-tight">
-                        ANATOMÍA DE UN<br/>REEL DE VENTA
+                    <h1 className="font-display text-7xl md:text-[9rem] text-black mb-12 leading-[0.9] tracking-tight">
+                        ANATOMÍA DE<br/>UN REEL DE VENTA
                     </h1>
-                    <p className="text-2xl md:text-3xl font-bold text-black/80 max-w-4xl mx-auto leading-snug">
+                    <p className="text-3xl md:text-5xl font-bold text-black/80 max-w-6xl mx-auto leading-tight">
                         Manual de Estructura Narrativa y Psicología de Retención para Eventos Masivos
                     </p>
                     </div>
                 </header>
 
-                <main className="max-w-7xl mx-auto p-6 md:p-12 space-y-32">
+                <main className="max-w-[100rem] mx-auto p-8 md:p-20 space-y-48">
                     
                     {/* SECCIÓN 1: LA ESTRUCTURA (TEORÍA DE LOS 5 PASOS) */}
                     <section>
-                    <div className="flex items-center gap-5 mb-10">
-                        <div className="bg-black text-white w-16 h-16 flex items-center justify-center font-display text-4xl rounded-xl shadow-[6px_6px_0px_0px_rgba(250,204,21,1)]">1</div>
-                        <h2 className="font-display text-4xl md:text-5xl uppercase italic tracking-tighter">La Estructura Psicológica</h2>
+                    <div className="flex flex-col md:flex-row md:items-center gap-8 mb-16">
+                        <div className="bg-black text-white w-24 h-24 flex items-center justify-center font-display text-6xl rounded-2xl shadow-[8px_8px_0px_0px_rgba(250,204,21,1)] shrink-0">1</div>
+                        <div>
+                            <h2 className="font-display text-6xl md:text-8xl uppercase italic tracking-tighter leading-none">La Estructura Psicológica</h2>
+                            <p className="text-gray-500 text-2xl font-bold mt-4 flex items-center gap-3 animate-bounce">
+                                <MousePointerClick size={32}/> Toca las tarjetas para ver el guion
+                            </p>
+                        </div>
                     </div>
 
                     {/* BLOQUE EDITORIAL CIENTÍFICO */}
-                    <div className="bg-white border-l-4 border-black p-8 md:p-12 rounded-r-3xl shadow-sm mb-16">
+                    <div className="bg-white border-l-[12px] border-black p-12 md:p-20 rounded-r-[4rem] shadow-xl mb-24">
                         
-                        <div className="mb-10 border-b border-gray-200 pb-8">
-                        <h3 className="font-display text-3xl md:text-4xl text-black mb-4">¿Por qué funciona esto? (La Ciencia)</h3>
-                        <p className="text-gray-600 text-xl leading-relaxed max-w-4xl">
+                        <div className="mb-16 border-b-4 border-gray-100 pb-12">
+                        <h3 className="font-display text-5xl md:text-6xl text-black mb-8">¿Por qué funciona esto? (La Ciencia)</h3>
+                        <p className="text-gray-600 text-3xl leading-relaxed max-w-6xl">
                             No usamos esta estructura porque sea "bonita" o "creativa". La usamos porque es la única forma de hackear los filtros defensivos del cerebro humano moderno. Tu cliente no quiere comprar; <strong>tu cliente quiere sobrevivir ahorrando energía mental</strong>. Aquí te explico cómo nos colamos en su mente:
                         </p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+                        <div className="grid md:grid-cols-2 gap-20">
                         {/* COLUMNA 1: EL PORTERO DE DISCOTECA (S.A.R.) */}
-                        <div className="space-y-8">
-                            <div className="flex items-center gap-2 text-blue-600 uppercase font-bold tracking-widest text-sm">
-                            <Brain size={20} /> Neurobiología: El Filtro
+                        <div className="space-y-12">
+                            <div className="flex items-center gap-4 text-blue-600 uppercase font-bold tracking-widest text-xl">
+                            <Brain size={32} /> Neurobiología: El Filtro
                             </div>
                             
                             <div>
-                            <h4 className="text-2xl font-bold text-black mb-3">
+                            <h4 className="text-4xl font-bold text-black mb-6">
                                 El "Portero de Discoteca" Cerebral
                             </h4>
-                            <p className="text-gray-600 text-lg leading-relaxed">
+                            <p className="text-gray-600 text-2xl leading-relaxed">
                                 Imagina que tu cerebro tiene un portero muy estricto en la entrada. Su nombre técnico es <strong>Sistema Activador Reticular (S.A.R.)</strong>.
                             </p>
                             </div>
                             
-                            <p className="text-gray-600 text-lg leading-relaxed">
+                            <p className="text-gray-600 text-2xl leading-relaxed">
                             Su trabajo es simple: bloquear el 99% de la información aburrida para que no te vuelvas loco. Si ves un anuncio que dice "Hola, somos la empresa X...", el portero lo bloquea antes de que seas consciente.
                             </p>
 
-                            <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 -mt-2 -mr-2 opacity-10">
-                                <ShieldCheck size={80} />
+                            <div className="bg-blue-50 p-10 rounded-[2rem] border-4 border-blue-100 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 -mt-6 -mr-6 opacity-10">
+                                <ShieldCheck size={180} />
                             </div>
-                            <p className="text-blue-900 text-lg font-medium leading-relaxed relative z-10">
+                            <p className="text-blue-900 text-2xl font-medium leading-relaxed relative z-10">
                                 <strong>¿Cómo lo sobornamos?</strong><br/>
                                 El portero solo deja pasar dos cosas: <strong>Amenazas</strong> (peligro) o <strong>Recompensas</strong> (placer). Por eso el Paso 1 (Gancho) es vital: si no es un shock visual inmediato, el portero nos cierra la puerta en la cara.
                             </p>
@@ -211,47 +216,47 @@
                         </div>
 
                         {/* COLUMNA 2: EL VIAJE QUÍMICO */}
-                        <div className="space-y-8">
-                            <div className="flex items-center gap-2 text-purple-600 uppercase font-bold tracking-widest text-sm">
-                            <FlaskConical size={20} /> Neuroquímica: El Cóctel
+                        <div className="space-y-12">
+                            <div className="flex items-center gap-4 text-purple-600 uppercase font-bold tracking-widest text-xl">
+                            <FlaskConical size={32} /> Neuroquímica: El Cóctel
                             </div>
 
                             <div>
-                            <h4 className="text-2xl font-bold text-black mb-3">
+                            <h4 className="text-4xl font-bold text-black mb-6">
                                 Hackeando las Hormonas
                             </h4>
-                            <p className="text-gray-600 text-lg leading-relaxed">
+                            <p className="text-gray-600 text-2xl leading-relaxed">
                                 Una vez dentro, no vendemos con lógica, vendemos inyectando pequeñas dosis de hormonas en un orden específico. Es como cocinar una receta emocional:
                             </p>
                             </div>
 
-                            <ul className="space-y-6">
-                            <li className="flex gap-5 items-start p-4 hover:bg-gray-50 rounded-2xl transition-colors">
-                                <div className="bg-red-100 text-red-600 p-3 rounded-xl shrink-0 shadow-sm"><TrendingUp size={24}/></div>
+                            <ul className="space-y-8">
+                            <li className="flex gap-8 items-start p-8 hover:bg-gray-50 rounded-[2rem] transition-colors border-2 border-transparent hover:border-gray-200">
+                                <div className="bg-red-100 text-red-600 p-4 rounded-2xl shrink-0 shadow-sm"><TrendingUp size={40}/></div>
                                 <div>
-                                <strong className="text-gray-900 block text-xl mb-2">1. La Dosis de Miedo (Cortisol)</strong>
-                                <p className="text-base text-gray-600 leading-relaxed">
-                                    En el Paso 2 (Contexto), agitamos el problema. El psicólogo D. Kahneman probó que <strong>odiamos perder el doble de lo que amamos ganar</strong>. Si le recordamos al usuario lo que está perdiendo (pelo, dinero, tiempo), su cerebro se pone alerta.
+                                <strong className="text-gray-900 block text-3xl mb-3">1. La Dosis de Miedo (Cortisol)</strong>
+                                <p className="text-xl text-gray-600 leading-relaxed">
+                                    En el Paso 2 (Contexto), agitamos el problema. El psicólogo D. Kahneman probó que <strong>odiamos perder el doble de lo que amamos ganar</strong>.
                                 </p>
                                 </div>
                             </li>
                             
-                            <li className="flex gap-5 items-start p-4 hover:bg-gray-50 rounded-2xl transition-colors">
-                                <div className="bg-yellow-100 text-yellow-600 p-3 rounded-xl shrink-0 shadow-sm"><Sparkles size={24}/></div>
+                            <li className="flex gap-8 items-start p-8 hover:bg-gray-50 rounded-[2rem] transition-colors border-2 border-transparent hover:border-gray-200">
+                                <div className="bg-yellow-100 text-yellow-600 p-4 rounded-2xl shrink-0 shadow-sm"><Sparkles size={40}/></div>
                                 <div>
-                                <strong className="text-gray-900 block text-xl mb-2">2. La Promesa (Dopamina)</strong>
-                                <p className="text-base text-gray-600 leading-relaxed">
-                                    En el Paso 3 (Solución), mostramos el "milagro". El cerebro libera dopamina, que no es la hormona del placer, sino la del <strong>deseo y la búsqueda</strong>. Es la gasolina que le hace querer hacer clic.
+                                <strong className="text-gray-900 block text-3xl mb-3">2. La Promesa (Dopamina)</strong>
+                                <p className="text-xl text-gray-600 leading-relaxed">
+                                    En el Paso 3 (Solución), mostramos el "milagro". El cerebro libera dopamina, que no es la hormona del placer, sino la del <strong>deseo y la búsqueda</strong>.
                                 </p>
                                 </div>
                             </li>
                             
-                            <li className="flex gap-5 items-start p-4 hover:bg-gray-50 rounded-2xl transition-colors">
-                                <div className="bg-green-100 text-green-600 p-3 rounded-xl shrink-0 shadow-sm"><Users size={24}/></div>
+                            <li className="flex gap-8 items-start p-8 hover:bg-gray-50 rounded-[2rem] transition-colors border-2 border-transparent hover:border-gray-200">
+                                <div className="bg-green-100 text-green-600 p-4 rounded-2xl shrink-0 shadow-sm"><Users size={40}/></div>
                                 <div>
-                                <strong className="text-gray-900 block text-xl mb-2">3. El Alivio de Manada (Oxitocina)</strong>
-                                <p className="text-base text-gray-600 leading-relaxed">
-                                    En el Paso 4 (Prueba), mostramos a otros usuarios felices. Esto libera oxitocina (confianza). Evolutivamente, si la manada come de esa fruta y no muere, <strong>es seguro que yo también coma</strong>.
+                                <strong className="text-gray-900 block text-3xl mb-3">3. El Alivio de Manada (Oxitocina)</strong>
+                                <p className="text-xl text-gray-600 leading-relaxed">
+                                    En el Paso 4 (Prueba), mostramos a otros usuarios felices. Esto libera oxitocina (confianza). <strong>"Si ellos sobrevivieron, yo también"</strong>.
                                 </p>
                                 </div>
                             </li>
@@ -260,26 +265,23 @@
                         </div>
 
                         {/* EL EJEMPLO HIPOTÉTICO (PUENTE) */}
-                        <div className="mt-16 pt-12 border-t-2 border-gray-100 bg-gradient-to-r from-yellow-50 to-white -mx-8 -mb-12 p-10 rounded-br-3xl flex flex-col md:flex-row gap-8 items-center shadow-inner">
-                        <div className="bg-yellow-400 text-black p-5 rounded-2xl shrink-0 shadow-lg transform rotate-3">
-                            <Lightbulb size={40} strokeWidth={2.5} />
+                        <div className="mt-24 pt-16 border-t-4 border-gray-100 bg-gradient-to-r from-yellow-50 to-white -mx-12 md:-mx-20 -mb-20 p-16 rounded-br-[4rem] flex flex-col md:flex-row gap-12 items-center shadow-inner">
+                        <div className="bg-yellow-400 text-black p-8 rounded-[2rem] shrink-0 shadow-xl transform -rotate-3">
+                            <Lightbulb size={64} strokeWidth={2.5} />
                         </div>
                         <div className="flex-1">
-                            <h4 className="font-display text-2xl text-black mb-3 uppercase tracking-tight">
+                            <h4 className="font-display text-4xl text-black mb-4 uppercase tracking-tight">
                             Vamos a la Práctica: El Caso "PeloMágico"
                             </h4>
-                            <p className="text-gray-700 text-xl leading-relaxed mb-4">
+                            <p className="text-gray-700 text-2xl leading-relaxed mb-6">
                             Toda esta teoría suena muy densa, así que para explicarte las 5 puertas usaremos un ejemplo 100% inventado: un remedio milagroso para la alopecia que no existe.
-                            </p>
-                            <p className="text-gray-900 text-lg font-bold flex items-center gap-2">
-                            <MousePointerClick size={20}/> Toca las tarjetas de abajo para ver cómo aplicamos esta química paso a paso.
                             </p>
                         </div>
                         </div>
                     </div>
 
                     {/* GRID DE TARJETAS (Las 5 Puertas) */}
-                    <div className="grid grid-cols-1 md:grid-cols-5 gap-5 items-start">
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
                         {steps.map((item, idx) => {
                         const isExpanded = expandedStep === idx;
                         return (
@@ -287,47 +289,50 @@
                             key={idx} 
                             onClick={() => setExpandedStep(isExpanded ? null : idx)}
                             className={`
-                                relative p-6 rounded-2xl border-2 cursor-pointer transition-all duration-500 group overflow-hidden
+                                relative p-8 rounded-[2.5rem] border-[3px] cursor-pointer transition-all duration-500 group overflow-hidden
                                 ${isExpanded 
-                                ? 'bg-gray-900 border-black shadow-[8px_8px_0px_0px_rgba(250,204,21,1)] -translate-y-2 z-10 md:col-span-2 row-span-2' 
-                                : 'bg-white border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1'
+                                ? 'bg-gray-900 border-black shadow-[16px_16px_0px_0px_rgba(250,204,21,1)] -translate-y-4 z-10 md:col-span-2 row-span-2' 
+                                : 'bg-white border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2'
                                 }
                             `}
                             >
                             {/* Cabecera de la Tarjeta */}
-                            <div className="flex justify-between items-start mb-6 relative z-10">
-                                <div className={`p-4 rounded-2xl transition-transform ${isExpanded ? 'bg-gray-800 text-white' : `${item.bg} ${item.color} group-hover:scale-110`}`}>
-                                <item.icon size={28} strokeWidth={2.5} />
+                            <div className="flex justify-between items-start mb-8 relative z-10">
+                                <div className={`p-6 rounded-2xl transition-transform ${isExpanded ? 'bg-gray-800 text-white' : `${item.bg} ${item.color} group-hover:scale-110`}`}>
+                                <item.icon size={40} strokeWidth={2.5} />
                                 </div>
-                                <span className={`font-display text-4xl ${isExpanded ? 'text-yellow-400' : 'text-gray-200'}`}>{item.step}</span>
+                                <span className={`font-display text-7xl ${isExpanded ? 'text-yellow-400' : 'text-gray-200'}`}>{item.step}</span>
                             </div>
                             
-                            <h3 className={`font-display text-xl md:text-2xl mb-3 leading-tight relative z-10 ${isExpanded ? 'text-white text-3xl mb-8' : 'text-black'}`}>{item.title}</h3>
+                            <h3 className={`font-display text-3xl md:text-4xl mb-4 leading-tight relative z-10 ${isExpanded ? 'text-white text-5xl mb-12' : 'text-black'}`}>{item.title}</h3>
                             
                             {!isExpanded && (
                                 <div className="relative z-10">
-                                <div className="text-sm font-bold bg-gray-100 text-gray-500 inline-block px-3 py-1 rounded-lg mb-4">{item.time}</div>
-                                <p className="text-base text-gray-600 leading-snug font-medium mb-6">{item.desc}</p>
-                                <div className="flex items-center justify-center pt-4 border-t border-gray-100">
-                                    <ChevronDown size={24} className="text-gray-300 animate-bounce" />
-                                </div>
+                                    <div className="text-lg font-bold bg-gray-100 text-gray-500 inline-block px-4 py-2 rounded-xl mb-6">{item.time}</div>
+                                    <p className="text-xl text-gray-600 leading-snug font-medium mb-8">{item.desc}</p>
+                                    
+                                    {/* PISTA VISUAL DE INTERACCIÓN */}
+                                    <div className="pt-6 border-t-2 border-gray-100 flex flex-col items-center gap-2 group-hover:text-blue-600 transition-colors">
+                                        <span className="text-sm font-black uppercase tracking-widest text-gray-400 group-hover:text-blue-600">Toca para abrir</span>
+                                        <ChevronDown size={32} className="text-gray-300 group-hover:text-blue-600 animate-bounce" />
+                                    </div>
                                 </div>
                             )}
 
                             {/* Contenido Expandido (Explicación Coloquial) */}
                             {isExpanded && (
-                                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 relative z-10">
-                                <div className="bg-gray-800/50 rounded-2xl p-6 mb-6 border border-gray-700">
-                                    <div className="flex items-center gap-3 text-yellow-400 text-sm font-bold uppercase tracking-widest mb-4">
-                                    <MessageCircle size={18} /> {item.colloquialTitle}
+                                <div className="animate-in fade-in slide-in-from-bottom-8 duration-500 relative z-10">
+                                <div className="bg-gray-800/50 rounded-[2rem] p-10 mb-8 border-2 border-gray-700">
+                                    <div className="flex items-center gap-4 text-yellow-400 text-xl font-bold uppercase tracking-widest mb-6">
+                                    <MessageCircle size={24} /> {item.colloquialTitle}
                                     </div>
-                                    <p className="text-gray-100 text-lg leading-relaxed font-medium">
+                                    <p className="text-gray-100 text-2xl leading-relaxed font-medium">
                                     {item.colloquialText}
                                     </p>
                                 </div>
                                 {idx < 4 && (
-                                    <div className="text-right mt-6">
-                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider hover:text-yellow-400 transition-colors">
+                                    <div className="text-right mt-8">
+                                    <span className="text-lg font-bold text-gray-500 uppercase tracking-wider hover:text-yellow-400 transition-colors cursor-pointer">
                                         Siguiente paso: {item.nextCue} &rarr;
                                     </span>
                                     </div>
@@ -341,36 +346,36 @@
                     </section>
 
                     {/* SECCIÓN 2: EL ALGORITMO (Justificación) */}
-                    <section className="grid md:grid-cols-2 gap-16 items-center">
+                    <section className="grid md:grid-cols-2 gap-24 items-center">
                     <div>
-                        <div className="flex items-center gap-5 mb-6">
-                        <div className="bg-black text-white w-16 h-16 flex items-center justify-center font-display text-4xl rounded-xl shadow-[6px_6px_0px_0px_rgba(250,204,21,1)]">2</div>
-                        <h2 className="font-display text-4xl md:text-5xl uppercase italic tracking-tighter">El Algoritmo "Andrómeda"</h2>
+                        <div className="flex items-center gap-8 mb-10">
+                        <div className="bg-black text-white w-24 h-24 flex items-center justify-center font-display text-6xl rounded-2xl shadow-[8px_8px_0px_0px_rgba(250,204,21,1)] shrink-0">2</div>
+                        <h2 className="font-display text-6xl md:text-8xl uppercase italic tracking-tighter leading-none">El Algoritmo "Andrómeda"</h2>
                         </div>
 
                         {/* EXPLICACIÓN ANDRÓMEDA */}
-                        <div className="bg-gray-50 border-l-4 border-yellow-400 p-6 mb-10 rounded-r-2xl">
-                        <div className="flex gap-3 items-start">
-                            <Info className="text-yellow-600 shrink-0 mt-1" size={24} />
+                        <div className="bg-gray-200 border-l-[12px] border-yellow-400 p-12 mb-16 rounded-r-[3rem]">
+                        <div className="flex gap-8 items-start">
+                            <Info className="text-yellow-600 shrink-0 mt-2" size={48} />
                             <div>
-                            <h4 className="font-bold text-lg text-black mb-2">¿Qué es el Proyecto Andrómeda?</h4>
-                            <p className="text-gray-700 leading-relaxed text-base mb-4">
+                            <h4 className="font-bold text-3xl text-black mb-6">¿Qué es el Proyecto Andrómeda?</h4>
+                            <p className="text-gray-800 leading-relaxed text-2xl mb-6">
                                 Es el nombre en clave del cambio radical que Meta terminó de desplegar globalmente en <strong>Octubre de 2025</strong>.
                             </p>
-                            <p className="text-gray-700 leading-relaxed text-base mb-4">
+                            <p className="text-gray-800 leading-relaxed text-2xl mb-6">
                                 Este despliegue ha afectado a todo tipo de negocios, incluso a aquellos que habían logrado un gran éxito previamente. <strong>Las reglas cambiaron para todos:</strong> lo que funcionaba hace meses ya no sirve hoy.
                             </p>
-                            <p className="text-gray-700 leading-relaxed text-base">
-                                Pasamos definitivamente del <strong>"Social Graph"</strong> (tus amigos) al <strong>"Interest Graph"</strong> (contenido de desconocidos que te retiene). Si no adaptas tu estrategia a este nuevo estándar de 2025, estás jugando a un juego que ya no existe.
+                            <p className="text-gray-800 leading-relaxed text-2xl">
+                                Pasamos definitivamente del <strong>"Social Graph"</strong> (tus amigos) al <strong>"Interest Graph"</strong> (contenido de desconocidos que te retiene).
                             </p>
                             </div>
                         </div>
                         </div>
                         
-                        <div className="space-y-6">
-                        <p className="font-bold text-gray-800 text-2xl mb-4">¿Por qué debemos pagar pauta y no solo subirlo orgánico? <span className="text-gray-500 text-lg font-normal block mt-2">(Haz clic para entender la realidad)</span></p>
+                        <div className="space-y-8">
+                        <p className="font-bold text-gray-800 text-4xl mb-8">¿Por qué debemos pagar pauta y no solo subirlo orgánico? <span className="text-gray-500 text-2xl font-normal block mt-4">(Toca las tarjetas para entender)</span></p>
                         
-                        <div className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-8">
                             {algoSteps.map((item, idx) => {
                             const isExpanded = expandedAlgo === idx;
                             return (
@@ -378,37 +383,37 @@
                                 key={idx}
                                 onClick={() => setExpandedAlgo(isExpanded ? null : idx)}
                                 className={`
-                                    p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 overflow-hidden group
+                                    p-10 rounded-[2.5rem] border-[3px] cursor-pointer transition-all duration-300 overflow-hidden group
                                     ${isExpanded 
-                                    ? 'bg-gray-900 border-black shadow-[8px_8px_0px_0px_rgba(250,204,21,1)] -translate-x-2' 
-                                    : 'bg-white border-gray-200 hover:border-black shadow-sm hover:shadow-md'
+                                    ? 'bg-gray-900 border-black shadow-[12px_12px_0px_0px_rgba(250,204,21,1)] -translate-x-2' 
+                                    : 'bg-white border-gray-200 hover:border-black shadow-md hover:shadow-xl'
                                     }
                                 `}
                                 >
-                                <div className="flex gap-5 items-start">
-                                    <div className={`${isExpanded ? 'bg-gray-800 text-white' : `${item.bg} ${item.color}`} p-3 rounded-xl shrink-0 transition-colors`}>
-                                    <item.icon size={28} />
+                                <div className="flex gap-8 items-start">
+                                    <div className={`${isExpanded ? 'bg-gray-800 text-white' : `${item.bg} ${item.color}`} p-6 rounded-2xl shrink-0 transition-colors`}>
+                                    <item.icon size={40} />
                                     </div>
                                     <div className="flex-1">
-                                    <strong className={`block text-xl mb-2 transition-colors ${isExpanded ? 'text-yellow-400' : 'text-gray-900'}`}>
+                                    <strong className={`block text-3xl mb-4 transition-colors ${isExpanded ? 'text-yellow-400' : 'text-gray-900'}`}>
                                         {item.title}
                                     </strong>
                                     {!isExpanded && (
                                         <div className="animate-in fade-in">
-                                        <span className="text-lg text-gray-600 leading-relaxed block mb-2">{item.desc}</span>
-                                        <div className="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest gap-1 mt-3">
-                                            <ChevronDown size={14} /> Leer explicación detallada
+                                        <span className="text-2xl text-gray-600 leading-relaxed block mb-6">{item.desc}</span>
+                                        <div className="flex items-center text-lg font-bold text-gray-400 uppercase tracking-widest gap-3 mt-4 group-hover:text-blue-600 transition-colors">
+                                            <ChevronDown size={24} /> Despliega para leer
                                         </div>
                                         </div>
                                     )}
                                     
                                     {isExpanded && (
-                                        <div className="animate-in fade-in slide-in-from-top-2 duration-300 pt-2">
-                                        <div className="bg-gray-800/50 rounded-xl p-5 border border-gray-700 mb-2">
-                                            <div className="flex items-center gap-2 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-3">
-                                            <Database size={14} /> {item.expandedTitle}
+                                        <div className="animate-in fade-in slide-in-from-top-4 duration-300 pt-6">
+                                        <div className="bg-gray-800/50 rounded-3xl p-8 border-2 border-gray-700 mb-4">
+                                            <div className="flex items-center gap-4 text-yellow-400 text-lg font-bold uppercase tracking-widest mb-6">
+                                            <Database size={24} /> {item.expandedTitle}
                                             </div>
-                                            <p className="text-gray-200 text-lg leading-relaxed font-medium">
+                                            <p className="text-gray-200 text-2xl leading-relaxed font-medium">
                                             {item.expandedText}
                                             </p>
                                         </div>
@@ -427,48 +432,48 @@
                     <div 
                         onClick={() => setExpandedDiscovery(!expandedDiscovery)}
                         className={`
-                        bg-white border-2 rounded-[3rem] p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center text-center relative overflow-hidden group cursor-pointer transition-all duration-500
-                        ${expandedDiscovery ? 'border-yellow-400 ring-4 ring-yellow-400/30 scale-[1.02]' : 'border-black hover:border-gray-600'}
+                        bg-white border-[4px] rounded-[5rem] p-20 shadow-[24px_24px_0px_0px_rgba(0,0,0,1)] flex flex-col items-center text-center relative overflow-hidden group cursor-pointer transition-all duration-500
+                        ${expandedDiscovery ? 'border-yellow-400 ring-8 ring-yellow-400/30 scale-[1.01]' : 'border-black hover:border-gray-600'}
                         `}
                     >
-                        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-50 -z-10"></div>
+                        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_2px,transparent_2px)] [background-size:32px_32px] opacity-50 -z-10"></div>
                         
                         {/* Header del Card */}
-                        <div className={`inline-flex items-center gap-3 text-black text-sm font-bold px-4 py-2 rounded-full border border-black mb-10 transition-colors ${expandedDiscovery ? 'bg-yellow-400' : 'bg-yellow-400'}`}>
-                        <ShieldCheck size={16} /> Discovery Engine
+                        <div className={`inline-flex items-center gap-4 text-black text-lg font-bold px-8 py-4 rounded-full border-2 border-black mb-16 transition-colors ${expandedDiscovery ? 'bg-yellow-400' : 'bg-yellow-400'}`}>
+                        <ShieldCheck size={24} /> Discovery Engine
                         </div>
                         
                         {/* Icono Principal Animado */}
-                        <div className="w-56 h-56 bg-gray-50 rounded-full flex items-center justify-center mb-10 relative border border-gray-200 transition-all">
-                        <div className={`absolute w-full h-full border-[8px] border-black rounded-full border-t-yellow-400 border-r-transparent ${expandedDiscovery ? 'animate-[spin_2s_linear_infinite]' : 'animate-[spin_10s_linear_infinite]'}`}></div>
-                        <div className="absolute w-3/4 h-3/4 border-[6px] border-gray-300 rounded-full animate-[spin_15s_linear_infinite_reverse] border-t-black"></div>
-                        <Users size={80} className={`text-black transition-transform ${expandedDiscovery ? 'scale-110' : ''}`} />
+                        <div className="w-80 h-80 bg-gray-50 rounded-full flex items-center justify-center mb-16 relative border-4 border-gray-200 transition-all">
+                        <div className={`absolute w-full h-full border-[12px] border-black rounded-full border-t-yellow-400 border-r-transparent ${expandedDiscovery ? 'animate-[spin_2s_linear_infinite]' : 'animate-[spin_10s_linear_infinite]'}`}></div>
+                        <div className="absolute w-3/4 h-3/4 border-[8px] border-gray-300 rounded-full animate-[spin_15s_linear_infinite_reverse] border-t-black"></div>
+                        <Users size={120} className={`text-black transition-transform ${expandedDiscovery ? 'scale-110' : ''}`} />
                         </div>
                         
-                        <h3 className="font-display text-3xl mb-4">Segmentación por Intención</h3>
+                        <h3 className="font-display text-5xl mb-8">Segmentación por Intención</h3>
                         
                         {!expandedDiscovery ? (
                         <div className="animate-in fade-in">
-                            <p className="text-gray-500 text-lg max-w-md mb-6">
+                            <p className="text-gray-500 text-2xl max-w-2xl mb-10">
                             El algoritmo detecta quién ve el video completo (Retención de los 5 pasos) y busca automáticamente "clones" de ese usuario.
                             </p>
-                            <div className="flex items-center justify-center text-xs font-bold text-gray-400 uppercase tracking-widest gap-1">
-                                <ChevronDown size={14} className="animate-bounce" /> Haz clic para saber cómo funciona
+                            <div className="flex items-center justify-center text-xl font-bold text-blue-600 uppercase tracking-widest gap-3 animate-pulse">
+                                <ChevronDown size={32} /> Toca aquí para saber cómo funciona
                             </div>
                         </div>
                         ) : (
-                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-lg">
-                            <div className="bg-gray-900 text-left rounded-2xl p-6 border border-gray-800 shadow-xl">
-                            <div className="flex items-center gap-2 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-4">
-                                <ScanFace size={16} /> Advantage+ : El Nuevo Estándar
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-4xl">
+                            <div className="bg-gray-900 text-left rounded-[3rem] p-12 border-2 border-gray-800 shadow-2xl">
+                            <div className="flex items-center gap-4 text-yellow-400 text-xl font-bold uppercase tracking-widest mb-8">
+                                <ScanFace size={32} /> Advantage+ : El Nuevo Estándar
                             </div>
-                            <p className="text-gray-200 text-lg leading-relaxed font-medium mb-4">
+                            <p className="text-gray-200 text-3xl leading-relaxed font-medium mb-8">
                                 Seguir segmentando manualmente (edad, intereses, ciudad) es <strong>matar el rendimiento</strong> de tu anuncio. Estás limitando artificialmente a una IA que es más lista que tú.
                             </p>
-                            <p className="text-gray-400 text-base leading-relaxed mb-4">
+                            <p className="text-gray-400 text-2xl leading-relaxed mb-8">
                                 La opción <strong>Advantage+</strong> elimina estas barreras. En lugar de buscar "personas de 25 años", busca <strong>patrones de comportamiento</strong> idénticos a los de tus compradores actuales.
                             </p>
-                            <p className="text-gray-400 text-base leading-relaxed">
+                            <p className="text-gray-400 text-2xl leading-relaxed">
                                 Básicamente, le das libertad total a la IA para que encuentre "Gemelos Digitales" en lugares donde tú nunca hubieras buscado. Deja que el algoritmo haga el trabajo sucio.
                             </p>
                             </div>
@@ -480,120 +485,122 @@
 
                     {/* SECCIÓN 3: ADAPTACIÓN (TABS INTERACTIVOS) */}
                     <section>
-                    <div className="flex items-center gap-5 mb-8">
-                        <div className="bg-black text-white w-16 h-16 flex items-center justify-center font-display text-4xl rounded-xl shadow-[6px_6px_0px_0px_rgba(250,204,21,1)]">3</div>
-                        <h2 className="font-display text-4xl md:text-5xl uppercase italic tracking-tighter">Adaptación Creativa</h2>
+                    <div className="flex flex-col md:flex-row md:items-center gap-8 mb-12">
+                        <div className="bg-black text-white w-24 h-24 flex items-center justify-center font-display text-6xl rounded-2xl shadow-[8px_8px_0px_0px_rgba(250,204,21,1)] shrink-0">3</div>
+                        <div>
+                             <h2 className="font-display text-6xl md:text-8xl uppercase italic tracking-tighter leading-none">Adaptación Creativa</h2>
+                        </div>
                     </div>
 
                     {/* DESCRIPCIÓN DE LA SECCIÓN */}
-                    <p className="text-xl text-gray-600 mb-10 max-w-3xl">
+                    <p className="text-3xl text-gray-600 mb-16 max-w-5xl">
                         Selecciona el formato de producción más adecuado según la personalidad del artista invitado y los recursos disponibles. No todos sirven para todo.
                     </p>
                     
-                    <div className="bg-white rounded-3xl border-2 border-black shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+                    <div className="bg-white rounded-[4rem] border-4 border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
                         {/* TABS HEADER */}
-                        <div className="flex flex-col md:flex-row border-b-2 border-black">
+                        <div className="flex flex-col md:flex-row border-b-4 border-black">
                         <button 
                             onClick={() => setActiveScenario('carismatico')}
-                            className={`flex-1 p-8 font-bold text-xl flex items-center justify-center gap-3 transition-all hover:bg-yellow-50 ${activeScenario === 'carismatico' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400'}`}
+                            className={`flex-1 p-12 font-bold text-3xl flex items-center justify-center gap-6 transition-all hover:bg-yellow-50 ${activeScenario === 'carismatico' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400'}`}
                         >
-                            <Mic size={28} /> El Carismático
+                            <Mic size={48} /> El Carismático
                         </button>
                         <button 
                             onClick={() => setActiveScenario('misterioso')}
-                            className={`flex-1 p-8 font-bold text-xl flex items-center justify-center gap-3 transition-all hover:bg-yellow-50 border-t-2 md:border-t-0 md:border-l-2 border-black ${activeScenario === 'misterioso' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400'}`}
+                            className={`flex-1 p-12 font-bold text-3xl flex items-center justify-center gap-6 transition-all hover:bg-yellow-50 border-t-4 md:border-t-0 md:border-l-4 border-black ${activeScenario === 'misterioso' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400'}`}
                         >
-                            <Music size={28} /> El Misterioso
+                            <Music size={48} /> El Misterioso
                         </button>
                         <button 
                             onClick={() => setActiveScenario('concepto')}
-                            className={`flex-1 p-8 font-bold text-xl flex items-center justify-center gap-3 transition-all hover:bg-yellow-50 border-t-2 md:border-t-0 md:border-l-2 border-black ${activeScenario === 'concepto' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400'}`}
+                            className={`flex-1 p-12 font-bold text-3xl flex items-center justify-center gap-6 transition-all hover:bg-yellow-50 border-t-4 md:border-t-0 md:border-l-4 border-black ${activeScenario === 'concepto' ? 'bg-yellow-400 text-black' : 'bg-white text-gray-400'}`}
                         >
-                            <MonitorPlay size={28} /> Solo Archivo
+                            <MonitorPlay size={48} /> Solo Archivo
                         </button>
                         </div>
 
                         {/* TAB CONTENT */}
-                        <div className="p-10 md:p-16 bg-gray-50/50 min-h-[400px]">
+                        <div className="p-16 md:p-24 bg-gray-50/50 min-h-[600px]">
                         
                         {activeScenario === 'carismatico' && (
-                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <div className="flex justify-between items-start mb-8">
-                                <h3 className="font-display text-4xl">Estilo "Talking Head"</h3>
-                                <span className="bg-black text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider">Formato Selfie</span>
+                            <div className="animate-in fade-in slide-in-from-bottom-8 duration-500">
+                            <div className="flex justify-between items-start mb-16">
+                                <h3 className="font-display text-6xl">Estilo "Talking Head"</h3>
+                                <span className="bg-black text-white px-8 py-4 rounded-full text-xl font-bold uppercase tracking-wider">Formato Selfie</span>
                             </div>
                             
-                            <div className="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-600 mb-10">
-                                <h4 className="text-blue-900 font-bold text-lg mb-2 flex items-center gap-2"><Megaphone size={18}/> Nota para el Productor de Campo:</h4>
-                                <p className="text-blue-800/80 text-lg leading-relaxed">
+                            <div className="bg-blue-50 p-12 rounded-[3rem] border-l-[12px] border-blue-600 mb-16">
+                                <h4 className="text-blue-900 font-bold text-3xl mb-6 flex items-center gap-4"><Megaphone size={32}/> Nota para el Productor de Campo:</h4>
+                                <p className="text-blue-800/80 text-3xl leading-relaxed">
                                     Si el artista es aburrido, este formato NO sirve. Necesitamos energía tipo "YouTuber". Dale café, pon música alta antes de grabar. Si se siente ridículo haciéndolo, es que lo está haciendo bien.
                                 </p>
                             </div>
 
                             {/* INSTRUCCIONES DE PRODUCCIÓN - CARISMÁTICO */}
-                            <div className="grid md:grid-cols-3 gap-6 mb-10">
-                                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
-                                    <Aperture size={16} /> Lente / Cámara
+                            <div className="grid md:grid-cols-3 gap-10 mb-16">
+                                <div className="bg-white p-10 rounded-[2rem] border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-center gap-3 text-gray-400 text-sm font-bold uppercase mb-6">
+                                    <Aperture size={24} /> Lente / Cámara
                                     </div>
-                                    <p className="text-base font-medium leading-relaxed text-gray-800">
+                                    <p className="text-2xl font-medium leading-relaxed text-gray-800">
                                     Usa un <strong>24mm o más angular</strong>. Queremos distorsión de perspectiva. La cámara debe estar a menos de un brazo de distancia.
                                     </p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
-                                    <Mic size={16} /> Audio
+                                <div className="bg-white p-10 rounded-[2rem] border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-center gap-3 text-gray-400 text-sm font-bold uppercase mb-6">
+                                    <Mic size={24} /> Audio
                                     </div>
-                                    <p className="text-base font-medium leading-relaxed text-gray-800">
+                                    <p className="text-2xl font-medium leading-relaxed text-gray-800">
                                     El audio debe ser <strong>"In your face"</strong>. Sin rever de sala. Si puedes, que sostenga el micrófono con la mano para dar autoridad visual.
                                     </p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
-                                    <Clapperboard size={16} /> Edición
+                                <div className="bg-white p-10 rounded-[2rem] border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-center gap-3 text-gray-400 text-sm font-bold uppercase mb-6">
+                                    <Clapperboard size={24} /> Edición
                                     </div>
-                                    <p className="text-base font-medium leading-relaxed text-gray-800">
+                                    <p className="text-2xl font-medium leading-relaxed text-gray-800">
                                     <strong>Jump Cuts agresivos</strong>. Elimina cada respiración y silencio. Haz un zoom digital (10-15%) cada vez que enfatice una palabra clave.
                                     </p>
                                 </div>
                             </div>
                             
-                            <div className="space-y-4">
-                                <div className="bg-white p-8 rounded-2xl border-l-4 border-black shadow-sm">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="bg-black text-white text-xs font-bold px-3 py-1 rounded uppercase">Paso 1: El Gancho</span>
-                                    <span className="text-gray-400 text-sm font-bold uppercase tracking-widest">00:00 - 00:03</span>
+                            <div className="space-y-8">
+                                <div className="bg-white p-12 rounded-[2.5rem] border-l-8 border-black shadow-sm">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <span className="bg-black text-white text-sm font-bold px-6 py-2 rounded-lg uppercase">Paso 1: El Gancho</span>
+                                    <span className="text-gray-400 text-lg font-bold uppercase tracking-widest">00:00 - 00:03</span>
                                 </div>
-                                <p className="text-gray-900 text-xl font-bold leading-snug">
+                                <p className="text-gray-900 text-4xl font-bold leading-snug mb-4">
                                     "¡ACÉRCATE!"
                                 </p>
-                                <p className="text-gray-600 text-lg mt-2">
+                                <p className="text-gray-600 text-2xl leading-relaxed">
                                     El artista debe físicamente acercar su cara al lente o poner la mano sobre él y quitarla. Rompe la barrera digital. "¡Hey! Tengo algo para ti...".
                                 </p>
                                 </div>
 
-                                <div className="bg-white p-8 rounded-2xl border-l-4 border-gray-300 shadow-sm">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded uppercase">Paso 2: Cuerpo</span>
-                                    <span className="text-gray-400 text-sm font-bold uppercase tracking-widest">00:03 - 00:20</span>
+                                <div className="bg-white p-12 rounded-[2.5rem] border-l-8 border-gray-300 shadow-sm">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <span className="bg-gray-200 text-gray-600 text-sm font-bold px-6 py-2 rounded-lg uppercase">Paso 2: Cuerpo</span>
+                                    <span className="text-gray-400 text-lg font-bold uppercase tracking-widest">00:03 - 00:20</span>
                                 </div>
-                                <p className="text-gray-900 text-xl font-bold leading-snug">
+                                <p className="text-gray-900 text-4xl font-bold leading-snug mb-4">
                                     Movimiento constante
                                 </p>
-                                <p className="text-gray-600 text-lg mt-2">
+                                <p className="text-gray-600 text-2xl leading-relaxed">
                                     No lo dejes quieto. Si camina, que la cámara lo siga (cámara en mano, inestable es mejor que trípode aburrido). Intercala con B-Roll de él riéndose o interactuando con fans.
                                 </p>
                                 </div>
 
-                                <div className="bg-white p-8 rounded-2xl border-l-4 border-yellow-400 shadow-sm">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded uppercase">Paso 3: CTA</span>
-                                    <span className="text-gray-400 text-sm font-bold uppercase tracking-widest">Final</span>
+                                <div className="bg-white p-12 rounded-[2.5rem] border-l-8 border-yellow-400 shadow-sm">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <span className="bg-yellow-400 text-black text-sm font-bold px-6 py-2 rounded-lg uppercase">Paso 3: CTA</span>
+                                    <span className="text-gray-400 text-lg font-bold uppercase tracking-widest">Final</span>
                                 </div>
-                                <p className="text-gray-900 text-xl font-bold leading-snug">
+                                <p className="text-gray-900 text-4xl font-bold leading-snug mb-4">
                                     La orden física
                                 </p>
-                                <p className="text-gray-600 text-lg mt-2">
+                                <p className="text-gray-600 text-2xl leading-relaxed">
                                     Tiene que señalar con el dedo hacia abajo (donde estará el botón). No sutilmente. Exagerado. "Dale click aquí abajo". Congela el cuadro en ese gesto.
                                 </p>
                                 </div>
@@ -602,83 +609,83 @@
                         )}
 
                         {activeScenario === 'misterioso' && (
-                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <div className="flex justify-between items-start mb-8">
-                                <h3 className="font-display text-4xl">Estilo "Voice Over"</h3>
-                                <span className="bg-black text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider">Cinemático</span>
+                            <div className="animate-in fade-in slide-in-from-bottom-8 duration-500">
+                            <div className="flex justify-between items-start mb-16">
+                                <h3 className="font-display text-6xl">Estilo "Voice Over"</h3>
+                                <span className="bg-black text-white px-8 py-4 rounded-full text-xl font-bold uppercase tracking-wider">Cinemático</span>
                             </div>
                             
-                            <div className="bg-purple-50 p-6 rounded-2xl border-l-4 border-purple-600 mb-10">
-                                <h4 className="text-purple-900 font-bold text-lg mb-2 flex items-center gap-2"><Megaphone size={18}/> Nota para el Productor de Campo:</h4>
-                                <p className="text-purple-800/80 text-lg leading-relaxed">
+                            <div className="bg-purple-50 p-12 rounded-[3rem] border-l-[12px] border-purple-600 mb-16">
+                                <h4 className="text-purple-900 font-bold text-3xl mb-6 flex items-center gap-4"><Megaphone size={32}/> Nota para el Productor de Campo:</h4>
+                                <p className="text-purple-800/80 text-3xl leading-relaxed">
                                     Ideal para artistas introvertidos o "divos" que no quieren memorizar guiones. Aquí vendemos una atmósfera, un "vibe". Busca locaciones con texturas (humo, neón, ladrillo). No necesitamos verle la cara todo el tiempo, necesitamos ver su "aura".
                                 </p>
                             </div>
 
                             {/* INSTRUCCIONES DE PRODUCCIÓN - MISTERIOSO */}
-                            <div className="grid md:grid-cols-3 gap-6 mb-10">
-                                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
-                                    <Aperture size={16} /> Lente / Cámara
+                            <div className="grid md:grid-cols-3 gap-10 mb-16">
+                                <div className="bg-white p-10 rounded-[2rem] border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-center gap-3 text-gray-400 text-sm font-bold uppercase mb-6">
+                                    <Aperture size={24} /> Lente / Cámara
                                     </div>
-                                    <p className="text-base font-medium leading-relaxed text-gray-800">
+                                    <p className="text-2xl font-medium leading-relaxed text-gray-800">
                                     Graba TODO a <strong>60fps o 120fps</strong>. Usaremos cámara lenta para darle epicidad. Usa lentes largos (50mm, 85mm) para desenfocar el fondo (Bokeh).
                                     </p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
-                                    <Mic size={16} /> Audio
+                                <div className="bg-white p-10 rounded-[2rem] border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-center gap-3 text-gray-400 text-sm font-bold uppercase mb-6">
+                                    <Mic size={24} /> Audio
                                     </div>
-                                    <p className="text-base font-medium leading-relaxed text-gray-800">
+                                    <p className="text-2xl font-medium leading-relaxed text-gray-800">
                                     Graba la voz en estudio, pegado al micrófono (efecto proximidad) y susurrando grave. Es ASMR para la venta.
                                     </p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
-                                    <Clapperboard size={16} /> Edición
+                                <div className="bg-white p-10 rounded-[2rem] border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-center gap-3 text-gray-400 text-sm font-bold uppercase mb-6">
+                                    <Clapperboard size={24} /> Edición
                                     </div>
-                                    <p className="text-base font-medium leading-relaxed text-gray-800">
+                                    <p className="text-2xl font-medium leading-relaxed text-gray-800">
                                     Color Grading oscuro y contrastado (Teal & Orange). Cortes al ritmo del beat. Si la música explota, la imagen cambia.
                                     </p>
                                 </div>
                             </div>
                             
-                            <div className="space-y-4">
-                                <div className="bg-white p-8 rounded-2xl border-l-4 border-black shadow-sm">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="bg-black text-white text-xs font-bold px-3 py-1 rounded uppercase">Paso 1: El Gancho</span>
-                                    <span className="text-gray-400 text-sm font-bold uppercase tracking-widest">00:00 - 00:03</span>
+                            <div className="space-y-8">
+                                <div className="bg-white p-12 rounded-[2.5rem] border-l-8 border-black shadow-sm">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <span className="bg-black text-white text-sm font-bold px-6 py-2 rounded-lg uppercase">Paso 1: El Gancho</span>
+                                    <span className="text-gray-400 text-lg font-bold uppercase tracking-widest">00:00 - 00:03</span>
                                 </div>
-                                <p className="text-gray-900 text-xl font-bold leading-snug">
+                                <p className="text-gray-900 text-4xl font-bold leading-snug mb-4">
                                     Estimulación Sensorial
                                 </p>
-                                <p className="text-gray-600 text-lg mt-2">
+                                <p className="text-gray-600 text-2xl leading-relaxed">
                                     No empieces con una cara. Empieza con un detalle macro: Una pupila dilatándose, humo saliendo de una boca, una mano con anillos golpeando una mesa. Sonido inmersivo.
                                 </p>
                                 </div>
 
-                                <div className="bg-white p-8 rounded-2xl border-l-4 border-gray-300 shadow-sm">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded uppercase">Paso 2: Cuerpo</span>
-                                    <span className="text-gray-400 text-sm font-bold uppercase tracking-widest">00:03 - 00:20</span>
+                                <div className="bg-white p-12 rounded-[2.5rem] border-l-8 border-gray-300 shadow-sm">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <span className="bg-gray-200 text-gray-600 text-sm font-bold px-6 py-2 rounded-lg uppercase">Paso 2: Cuerpo</span>
+                                    <span className="text-gray-400 text-lg font-bold uppercase tracking-widest">00:03 - 00:20</span>
                                 </div>
-                                <p className="text-gray-900 text-xl font-bold leading-snug">
+                                <p className="text-gray-900 text-4xl font-bold leading-snug mb-4">
                                     El Manifiesto
                                 </p>
-                                <p className="text-gray-600 text-lg mt-2">
+                                <p className="text-gray-600 text-2xl leading-relaxed">
                                     La voz en off narra un manifiesto poético, no una venta. Vemos al artista en cámara lenta caminando hacia una luz, o preparándose en el backstage. Es un tráiler de cine.
                                 </p>
                                 </div>
 
-                                <div className="bg-white p-8 rounded-2xl border-l-4 border-yellow-400 shadow-sm">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded uppercase">Paso 3: CTA</span>
-                                    <span className="text-gray-400 text-sm font-bold uppercase tracking-widest">Final</span>
+                                <div className="bg-white p-12 rounded-[2.5rem] border-l-8 border-yellow-400 shadow-sm">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <span className="bg-yellow-400 text-black text-sm font-bold px-6 py-2 rounded-lg uppercase">Paso 3: CTA</span>
+                                    <span className="text-gray-400 text-lg font-bold uppercase tracking-widest">Final</span>
                                 </div>
-                                <p className="text-gray-900 text-xl font-bold leading-snug">
+                                <p className="text-gray-900 text-4xl font-bold leading-snug mb-4">
                                     Golpe Final
                                 </p>
-                                <p className="text-gray-600 text-lg mt-2">
+                                <p className="text-gray-600 text-2xl leading-relaxed">
                                     Corte a negro o placa minimalista con la fecha. La voz dice una frase lapidaria: "Tú decides". El sonido corta en seco (Silence drop).
                                 </p>
                                 </div>
@@ -687,83 +694,83 @@
                         )}
 
                         {activeScenario === 'concepto' && (
-                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <div className="flex justify-between items-start mb-8">
-                                <h3 className="font-display text-4xl">Estilo "Kinetic Type"</h3>
-                                <span className="bg-black text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider">Gráfico</span>
+                            <div className="animate-in fade-in slide-in-from-bottom-8 duration-500">
+                            <div className="flex justify-between items-start mb-16">
+                                <h3 className="font-display text-6xl">Estilo "Kinetic Type"</h3>
+                                <span className="bg-black text-white px-8 py-4 rounded-full text-xl font-bold uppercase tracking-wider">Gráfico</span>
                             </div>
                             
-                            <div className="bg-red-50 p-6 rounded-2xl border-l-4 border-red-600 mb-10">
-                                <h4 className="text-red-900 font-bold text-lg mb-2 flex items-center gap-2"><Megaphone size={18}/> Nota para el Productor de Post:</h4>
-                                <p className="text-red-800/80 text-lg leading-relaxed">
+                            <div className="bg-red-50 p-12 rounded-[3rem] border-l-[12px] border-red-600 mb-16">
+                                <h4 className="text-red-900 font-bold text-3xl mb-6 flex items-center gap-4"><Megaphone size={32}/> Nota para el Productor de Post:</h4>
+                                <p className="text-red-800/80 text-3xl leading-relaxed">
                                     Este es el botón de pánico cuando <strong>no hay material nuevo</strong> o el artista no quiere grabar. La responsabilidad recae 100% en el Editor/Motion Grapher. Necesitas una carpeta con CUALQUIER cosa: fotos viejas, logos, texturas de papel, videos de stock abstractos.
                                 </p>
                             </div>
 
                             {/* INSTRUCCIONES DE PRODUCCIÓN - CONCEPTO */}
-                            <div className="grid md:grid-cols-3 gap-6 mb-10">
-                                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
-                                    <Type size={16} /> Gráficos
+                            <div className="grid md:grid-cols-3 gap-10 mb-16">
+                                <div className="bg-white p-10 rounded-[2rem] border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-center gap-3 text-gray-400 text-sm font-bold uppercase mb-6">
+                                    <Type size={24} /> Gráficos
                                     </div>
-                                    <p className="text-base font-medium leading-relaxed text-gray-800">
+                                    <p className="text-2xl font-medium leading-relaxed text-gray-800">
                                     Usa fuentes Sans-Serif "Bold" o "Heavy". Colores de alto contraste (Amarillo sobre Negro). La tipografía ES la imagen principal.
                                     </p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
-                                    <Layers size={16} /> Assets
+                                <div className="bg-white p-10 rounded-[2rem] border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-center gap-3 text-gray-400 text-sm font-bold uppercase mb-6">
+                                    <Layers size={24} /> Assets
                                     </div>
-                                    <p className="text-base font-medium leading-relaxed text-gray-800">
+                                    <p className="text-2xl font-medium leading-relaxed text-gray-800">
                                     Usa el efecto "Paralaje" (2.5D) para darle vida a fotos estáticas. Recorta al artista y muévelo independiente del fondo.
                                     </p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
-                                    <Mic size={16} /> Ritmo
+                                <div className="bg-white p-10 rounded-[2rem] border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-center gap-3 text-gray-400 text-sm font-bold uppercase mb-6">
+                                    <Mic size={24} /> Ritmo
                                     </div>
-                                    <p className="text-base font-medium leading-relaxed text-gray-800">
+                                    <p className="text-2xl font-medium leading-relaxed text-gray-800">
                                     Aquí no grabas, construyes. El ritmo lo marca el bombo (Kick) de la música. Cada golpe de batería debe ser un cambio visual o un golpe de texto.
                                     </p>
                                 </div>
                             </div>
                             
-                            <div className="space-y-4">
-                                <div className="bg-white p-8 rounded-2xl border-l-4 border-black shadow-sm">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="bg-black text-white text-xs font-bold px-3 py-1 rounded uppercase">Paso 1: El Gancho</span>
-                                    <span className="text-gray-400 text-sm font-bold uppercase tracking-widest">00:00 - 00:03</span>
+                            <div className="space-y-8">
+                                <div className="bg-white p-12 rounded-[2.5rem] border-l-8 border-black shadow-sm">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <span className="bg-black text-white text-sm font-bold px-6 py-2 rounded-lg uppercase">Paso 1: El Gancho</span>
+                                    <span className="text-gray-400 text-lg font-bold uppercase tracking-widest">00:00 - 00:03</span>
                                 </div>
-                                <p className="text-gray-900 text-xl font-bold leading-snug">
+                                <p className="text-gray-900 text-4xl font-bold leading-snug mb-4">
                                     Epilepsia Visual Controlada
                                 </p>
-                                <p className="text-gray-600 text-lg mt-2">
+                                <p className="text-gray-600 text-2xl leading-relaxed">
                                     Pantalla negra o rojo sólido. Una palabra gigante parpadea: "ALERTA". Sonido de glitch digital o sirena. Tiene que molestar visualmente para llamar la atención.
                                 </p>
                                 </div>
 
-                                <div className="bg-white p-8 rounded-2xl border-l-4 border-gray-300 shadow-sm">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded uppercase">Paso 2: Cuerpo</span>
-                                    <span className="text-gray-400 text-sm font-bold uppercase tracking-widest">00:03 - 00:20</span>
+                                <div className="bg-white p-12 rounded-[2.5rem] border-l-8 border-gray-300 shadow-sm">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <span className="bg-gray-200 text-gray-600 text-sm font-bold px-6 py-2 rounded-lg uppercase">Paso 2: Cuerpo</span>
+                                    <span className="text-gray-400 text-lg font-bold uppercase tracking-widest">00:03 - 00:20</span>
                                 </div>
-                                <p className="text-gray-900 text-xl font-bold leading-snug">
+                                <p className="text-gray-900 text-4xl font-bold leading-snug mb-4">
                                     Lectura Rápida
                                 </p>
-                                <p className="text-gray-600 text-lg mt-2">
+                                <p className="text-gray-600 text-2xl leading-relaxed">
                                     Muestra el texto palabra por palabra en el centro de la pantalla (estilo Alex Hormozi pero más agresivo). Fondo con texturas de papel rasgado o ruido analógico. Fotos del artista aparecen y desaparecen en frames sueltos (flashbacks).
                                 </p>
                                 </div>
 
-                                <div className="bg-white p-8 rounded-2xl border-l-4 border-yellow-400 shadow-sm">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded uppercase">Paso 3: CTA</span>
-                                    <span className="text-gray-400 text-sm font-bold uppercase tracking-widest">Final</span>
+                                <div className="bg-white p-12 rounded-[2.5rem] border-l-8 border-yellow-400 shadow-sm">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <span className="bg-yellow-400 text-black text-sm font-bold px-6 py-2 rounded-lg uppercase">Paso 3: CTA</span>
+                                    <span className="text-gray-400 text-lg font-bold uppercase tracking-widest">Final</span>
                                 </div>
-                                <p className="text-gray-900 text-xl font-bold leading-snug">
+                                <p className="text-gray-900 text-4xl font-bold leading-snug mb-4">
                                     Simulación de Interfaz
                                 </p>
-                                <p className="text-gray-600 text-lg mt-2">
+                                <p className="text-gray-600 text-2xl leading-relaxed">
                                     Dibuja un botón gigante en pantalla. Un cursor de ratón o un dedo digital entra en el cuadro y lo presiona. Animación de "Click" exagerada con sonido de mouse.
                                 </p>
                                 </div>
@@ -778,31 +785,31 @@
                 </main>
 
                 {/* FOOTER */}
-                <footer className="bg-black text-white p-10 md:p-16 border-t-4 border-yellow-400 text-center">
-                    <div className="flex justify-center items-center gap-3 mb-4 text-yellow-400">
-                    <Sparkles size={24} />
-                    <h4 className="text-2xl font-black tracking-widest">ESTRATEGIA AUDIOVISUAL</h4>
+                <footer className="bg-black text-white p-20 md:p-40 border-t-[12px] border-yellow-400 text-center">
+                    <div className="flex justify-center items-center gap-6 mb-12">
+                    <Sparkles size={48} />
+                    <h4 className="text-5xl font-black tracking-widest">ESTRATEGIA AUDIOVISUAL</h4>
                     </div>
-                    <p className="text-gray-500 text-sm mb-12">Documento confidencial para uso exclusivo del equipo de producción.</p>
+                    <p className="text-gray-500 text-2xl mb-24">Documento confidencial para uso exclusivo del equipo de producción.</p>
 
                     {/* Divider */}
-                    <div className="border-t border-gray-800 my-8 w-full max-w-lg mx-auto"></div>
+                    <div className="border-t border-gray-800 my-16 w-full max-w-2xl mx-auto"></div>
 
                     {/* Dimensión Interactiva Credits */}
-                    <div className="flex flex-col items-center gap-4">
-                        <p className="text-gray-400 text-xs uppercase tracking-widest mb-2">Desarrollado por</p>
+                    <div className="flex flex-col items-center gap-8">
+                        <p className="text-gray-400 text-lg uppercase tracking-widest mb-4">Desarrollado por</p>
                         <img
                             src="https://i.postimg.cc/BvBjJLbV/Soluciones-Digitales-Creativas-(1).png"
                             alt="Dimensión Interactiva Logo"
-                            className="h-40 md:h-64 object-contain mb-8 opacity-90 hover:opacity-100 transition-opacity" 
+                            className="h-64 md:h-96 object-contain mb-12 opacity-90 hover:opacity-100 transition-opacity" 
                         />
-                        <div className="flex flex-col md:flex-row gap-6 text-gray-400 text-sm font-medium">
-                            <div className="flex items-center gap-2 hover:text-white transition-colors">
-                                <Mail size={16} className="text-yellow-400"/>
+                        <div className="flex flex-col md:flex-row gap-12 text-gray-400 text-xl font-medium">
+                            <div className="flex items-center gap-4 hover:text-white transition-colors">
+                                <Mail size={24} className="text-yellow-400"/>
                                 <a href="mailto:dimension.interactiva@gmail.com">dimension.interactiva@gmail.com</a>
                             </div>
-                            <div className="flex items-center gap-2 hover:text-white transition-colors">
-                                <Phone size={16} className="text-yellow-400"/>
+                            <div className="flex items-center gap-4 hover:text-white transition-colors">
+                                <Phone size={24} className="text-yellow-400"/>
                                 <a href="tel:+50685020909">(506) 85020909</a>
                             </div>
                         </div>
